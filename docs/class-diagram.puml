@@ -1,0 +1,139 @@
+@startuml EncodingBatch_ClassDiagram
+
+' Style settings
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam packageStyle rectangle
+
+' Main Package
+package "com.example.batch" {
+    class EncodingBatchMain {
+        - LOGGER: Logger
+        - parameters: BatchParameters
+        + main(args: String[]): void
+        - loadParameters(paramFilePath: String): BatchParameters
+        - validateParameters(): void
+        - processFile(): void
+        - selectProcessor(): RecordProcessor
+    }
+}
+
+' Config Package
+package "com.example.batch.config" {
+    class BatchParameters {
+        - inputFilePath: String
+        - outputFilePath: String
+        - sourceCharsetSingle: String
+        - sourceCharsetDouble: String
+        - targetCharsetSingle: String
+        - targetCharsetDouble: String
+        - fileId: String
+        + getters/setters
+        + validate(): void
+        + getSourceCharsetSingle(): Charset
+        + getSourceCharsetDouble(): Charset
+        + getTargetCharsetSingle(): Charset
+        + getTargetCharsetDouble(): Charset
+    }
+
+    enum FileType {
+        FILE_A(210, false, false)
+        FILE_B(210, false, false)
+        FILE_C(380, true, false)
+        FILE_D(380, true, false)
+        FILE_E(0, false, true)
+        FILE_F(0, false, true)
+        --
+        - recordLength: int
+        - hasKanjiConversion: boolean
+        - isVariableLength: boolean
+        --
+        + fromString(fileId: String): FileType
+        + getRecordLength(): int
+        + hasKanjiConversion(): boolean
+        + isVariableLength(): boolean
+    }
+}
+
+' Processor Package
+package "com.example.batch.processor" {
+    abstract class RecordProcessor {
+        # parameters: BatchParameters
+        # fileType: FileType
+        --
+        + {abstract} processRecord(record: byte[]): byte[]
+        + processFile(inputPath: String, outputPath: String): void
+        # extractByCharCount(data: byte[], start: int, length: int): byte[]
+        # extractByBytePosition(data: byte[], start: int, end: int): byte[]
+        # isUtf8Source(): boolean
+    }
+
+    class FileABProcessor {
+        + processRecord(record: byte[]): byte[]
+    }
+
+    class FileCDProcessor {
+        - HEADER_RECORD_TYPE: byte
+        - DATA_RECORD_TYPE: byte
+        --
+        + processRecord(record: byte[]): byte[]
+        - processHeaderRecord(record: byte[]): byte[]
+        - processDataRecord(record: byte[]): byte[]
+        - getKanjiFieldDefinitions(dataType: byte): List<FieldDefinition>
+    }
+
+    class FileEFProcessor {
+        - CONTROL_CHAR_EBCDIC: byte
+        - CONTROL_CHAR_JIS_UTF8: byte
+        --
+        + processRecord(record: byte[]): byte[]
+        - readInt32BigEndian(data: byte[], offset: int): int
+        - writeInt32BigEndian(value: int): byte[]
+        - updateLengths(blockLength: int, recordLength: int, data: byte[]): byte[]
+    }
+}
+
+' Model Package
+package "com.example.batch.model" {
+    class FieldDefinition {
+        - startPosition: int
+        - endPosition: int
+        - startCharPosition: int
+        - lengthInChars: int
+        --
+        + FieldDefinition(start: int, end: int)
+        + FieldDefinition(startChar: int, lengthChars: int)
+        + getters()
+    }
+}
+
+' Util Package
+package "com.example.batch.util" {
+    class CodeConverter {
+        + {static} convertCharset(source: byte[], from: Charset, to: Charset): byte[]
+        + {static} convertDoubleByteCharset(source: byte[], from: Charset, to: Charset): byte[]
+        - {static} addEscapeSequence(data: byte[]): byte[]
+        - {static} removeEscapeSequence(data: byte[]): byte[]
+        - {static} convertControlCharacter(data: byte[], fromChar: byte, toChar: byte): byte[]
+    }
+}
+
+' Relationships
+EncodingBatchMain --> BatchParameters : uses
+EncodingBatchMain --> FileType : uses
+EncodingBatchMain --> RecordProcessor : creates
+
+BatchParameters --> FileType : validates
+
+RecordProcessor --> BatchParameters : uses
+RecordProcessor --> FileType : uses
+RecordProcessor --> CodeConverter : uses
+RecordProcessor --> FieldDefinition : uses
+
+FileABProcessor --|> RecordProcessor : extends
+FileCDProcessor --|> RecordProcessor : extends
+FileEFProcessor --|> RecordProcessor : extends
+
+FileCDProcessor --> FieldDefinition : creates
+
+@enduml

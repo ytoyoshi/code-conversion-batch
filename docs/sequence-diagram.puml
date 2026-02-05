@@ -1,0 +1,167 @@
+@startuml EncodingBatch_SequenceDiagram
+
+' Style settings
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+actor User
+participant EncodingBatchMain as Main
+participant BatchParameters as Params
+participant FileType as FType
+participant RecordProcessor as Processor
+participant CodeConverter as Converter
+database InputFile
+database OutputFile
+
+== 初期化フェーズ ==
+
+User -> Main: java -jar encoding-batch.jar <paramFile>
+activate Main
+
+Main -> Main: loadParameters(paramFilePath)
+activate Main
+Main -> Params: new BatchParameters()
+activate Params
+Main -> Params: load from properties file
+Params --> Main: parameters
+deactivate Params
+deactivate Main
+
+Main -> Params: validate()
+activate Params
+Params -> FType: fromString(fileId)
+activate FType
+FType --> Params: fileType
+deactivate FType
+Params -> Params: validate charset parameters
+Params --> Main: validation OK
+deactivate Params
+
+== ファイル処理フェーズ ==
+
+Main -> Main: selectProcessor()
+activate Main
+Main -> FType: hasKanjiConversion()
+Main -> FType: isVariableLength()
+
+alt FILE_A or FILE_B
+    Main -> Processor: new FileABProcessor(params, fileType)
+else FILE_C or FILE_D
+    Main -> Processor: new FileCDProcessor(params, fileType)
+else FILE_E or FILE_F
+    Main -> Processor: new FileEFProcessor(params, fileType)
+end
+
+activate Processor
+Processor --> Main: processor
+deactivate Main
+
+Main -> Processor: processFile(inputPath, outputPath)
+activate Processor
+
+Processor -> InputFile: open for reading
+activate InputFile
+
+Processor -> OutputFile: open for writing
+activate OutputFile
+
+loop for each record
+    Processor -> InputFile: read record
+    InputFile --> Processor: recordData
+
+    == レコード変換処理 ==
+    
+    alt FILE_A/B (全体変換)
+        Processor -> Converter: convertCharset(recordData, sourceCharset, targetCharset)
+        activate Converter
+        Converter -> Converter: convert encoding
+        Converter --> Processor: convertedData
+        deactivate Converter
+        
+    else FILE_C/D (部分変換)
+        Processor -> Processor: check record type (header/data)
+        
+        alt Header Record
+            Processor -> Converter: convertCharset(headerData, sourceCharsetSingle, targetCharsetSingle)
+            activate Converter
+            Converter --> Processor: convertedHeader
+            deactivate Converter
+            
+        else Data Record
+            Processor -> Processor: getKanjiFieldDefinitions()
+            
+            loop for each field
+                alt UTF-8 source
+                    Processor -> Processor: extractByCharCount(data, startChar, length)
+                else JIS/EBCDIC source
+                    Processor -> Processor: extractByBytePosition(data, startByte, endByte)
+                end
+                
+                Processor -> Converter: convertCharset(fieldData, sourceCharsetSingle, targetCharsetSingle)
+                activate Converter
+                Converter --> Processor: convertedField
+                deactivate Converter
+            end
+            
+            loop for each kanji field
+                alt UTF-8 source
+                    Processor -> Processor: extractByCharCount(data, startChar, length)
+                else JIS/EBCDIC source
+                    Processor -> Processor: extractByBytePosition(data, startByte, endByte)
+                end
+                
+                Processor -> Converter: convertDoubleByteCharset(kanjiData, sourceCharsetDouble, targetCharsetDouble)
+                activate Converter
+                
+                alt target is ISO-2022-JP
+                    Converter -> Converter: addEscapeSequence(data)
+                else source is ISO-2022-JP
+                    Converter -> Converter: removeEscapeSequence(data)
+                end
+                
+                Converter -> Converter: convert encoding
+                Converter --> Processor: convertedKanji
+                deactivate Converter
+            end
+        end
+        
+    else FILE_E/F (可変長)
+        Processor -> Processor: readInt32BigEndian(blockLength)
+        Processor -> Processor: readInt32BigEndian(recordLength)
+        
+        Processor -> Converter: convertCharset(variableData, sourceCharset, targetCharset)
+        activate Converter
+        Converter -> Converter: convertControlCharacter(data, 0xB4, 0x74)
+        Converter -> Converter: convert encoding
+        Converter --> Processor: convertedData
+        deactivate Converter
+        
+        Processor -> Processor: updateLengths(newBlockLength, newRecordLength)
+    end
+
+    Processor -> OutputFile: write convertedRecord
+end
+
+Processor -> InputFile: close
+deactivate InputFile
+
+Processor -> OutputFile: close
+deactivate OutputFile
+
+Processor --> Main: processing complete
+deactivate Processor
+
+Main --> User: batch completed successfully
+deactivate Main
+
+== エラー処理 ==
+
+alt Conversion Error
+    Converter -> Converter: CharacterCodingException
+    Converter --> Processor: throw exception
+    Processor --> Main: propagate exception
+    Main -> Main: log error with target info
+    Main --> User: exit with error
+end
+
+@enduml
