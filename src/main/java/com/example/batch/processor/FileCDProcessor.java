@@ -16,8 +16,10 @@ import java.util.List;
  */
 public class FileCDProcessor extends RecordProcessor {
 
-    private static final byte HEADER_RECORD_TYPE = 0x31;  // '1'
-    private static final byte DATA_RECORD_TYPE = 0x32;    // '2'
+    private static final byte HEADER_RECORD_TYPE = 0x31;   // '1'
+    private static final byte DATA_RECORD_TYPE = 0x32;     // '2'
+    private static final byte TRAILER_RECORD_TYPE = 0x38;  // '8'
+    private static final byte END_RECORD_TYPE = 0x39;      // '9'
     
     // データ種別
     private static final byte DATA_TYPE_1 = 0x31;  // '1'
@@ -74,9 +76,14 @@ public class FileCDProcessor extends RecordProcessor {
         char recordType = recordStr.charAt(0);
         
         if (recordType == '1') {
+            // ヘッダーレコード
             return processHeaderRecord(record);
         } else if (recordType == '2') {
+            // データレコード
             return processDataRecordUtf8(recordStr);
+        } else if (recordType == '8' || recordType == '9') {
+            // トレーラーレコード または エンドレコード
+            return processHeaderRecord(record);  // 全体を1バイト変換
         } else {
             throw new IllegalArgumentException("Invalid record type: " + recordType);
         }
@@ -97,9 +104,14 @@ public class FileCDProcessor extends RecordProcessor {
         byte recordType = record[0];
         
         if (recordType == HEADER_RECORD_TYPE) {
+            // ヘッダーレコード
             return processHeaderRecord(record);
         } else if (recordType == DATA_RECORD_TYPE) {
+            // データレコード
             return processDataRecordByte(record);
+        } else if (recordType == TRAILER_RECORD_TYPE || recordType == END_RECORD_TYPE) {
+            // トレーラーレコード または エンドレコード
+            return processHeaderRecord(record);  // 全体を1バイト変換
         } else {
             throw new IllegalArgumentException(
                 "Invalid record type: 0x" + Integer.toHexString(recordType & 0xFF));

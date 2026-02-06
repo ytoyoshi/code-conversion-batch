@@ -4,11 +4,14 @@ import com.example.batch.config.BatchParameters;
 import com.example.batch.config.FileType;
 import com.example.batch.util.CodeConverter;
 
+import java.io.*;
 import java.nio.charset.CharacterCodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
- * FILE_A, FILE_B用のレコードプロセッサ。
- * 1バイト文字のみで構成される210バイト固定長ファイルを全体変換。
+ * FILE_A, FILE_B用のファイルプロセッサ。
+ * 1バイト文字のみで構成されるファイルを全体一括変換。
  */
 public class FileABProcessor extends RecordProcessor {
 
@@ -28,34 +31,63 @@ public class FileABProcessor extends RecordProcessor {
     }
 
     /**
-     * レコード全体を変換。
-     * 1バイト文字のみなので、全体を一括で変換。
+     * ファイル全体を一括変換。
+     * レコード単位の処理は行わず、ファイル全体を読み込んで変換する。
      * 
-     * @param record 入力レコード(210バイト)
+     * @param inputPath 入力ファイルパス
+     * @param outputPath 出力ファイルパス
+     * @throws IOException ファイルI/Oエラー
+     * @throws CharacterCodingException 文字コード変換エラー
+     */
+    @Override
+    public void processFile(String inputPath, String outputPath) 
+            throws IOException, CharacterCodingException {
+        
+        LOGGER.info("Processing file (whole file conversion): {} -> {}", inputPath, outputPath);
+        LOGGER.info("File type: {}", fileType);
+        LOGGER.info("Source charset: {}", parameters.getSourceCharsetSingleName());
+        LOGGER.info("Target charset: {}", parameters.getTargetCharsetSingleName());
+
+        try {
+            // ファイル全体を読み込み
+            byte[] inputData = Files.readAllBytes(Paths.get(inputPath));
+            LOGGER.info("Read input file: {} bytes", inputData.length);
+
+            // ファイル全体を一括変換
+            byte[] convertedData = CodeConverter.convertCharset(
+                inputData,
+                parameters.getSourceCharsetSingle(),
+                parameters.getTargetCharsetSingle()
+            );
+            
+            LOGGER.info("Converted: {} bytes -> {} bytes", inputData.length, convertedData.length);
+
+            // ファイル全体を出力
+            Files.write(Paths.get(outputPath), convertedData);
+            LOGGER.info("Written output file: {} bytes", convertedData.length);
+
+            LOGGER.info("Processing completed successfully");
+
+        } catch (CharacterCodingException e) {
+            LOGGER.error("Character coding error: {}", e.getMessage());
+            throw e;
+        } catch (IOException e) {
+            LOGGER.error("File I/O error: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * レコード単位の処理は使用しない。
+     * processFile() で全体一括変換を実施。
+     * 
+     * @param record 入力レコード
      * @return 変換後のレコード
      * @throws CharacterCodingException 文字コード変換エラー
      */
     @Override
     public byte[] processRecord(byte[] record) throws CharacterCodingException {
-        
-        if (record.length != fileType.getRecordLength()) {
-            throw new IllegalArgumentException(
-                "Invalid record length for " + fileType + ": expected " + 
-                fileType.getRecordLength() + " bytes, got " + record.length + " bytes");
-        }
-
-        LOGGER.debug("Processing {} record: {} bytes", fileType, record.length);
-
-        // 1バイト文字として全体を変換
-        byte[] convertedRecord = CodeConverter.convertCharset(
-            record,
-            parameters.getSourceCharsetSingle(),
-            parameters.getTargetCharsetSingle()
-        );
-
-        LOGGER.debug("Converted record: {} bytes -> {} bytes", 
-                    record.length, convertedRecord.length);
-
-        return convertedRecord;
+        throw new UnsupportedOperationException(
+            "FileABProcessor does not support record-level processing. Use processFile() instead.");
     }
 }

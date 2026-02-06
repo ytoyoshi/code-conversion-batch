@@ -105,13 +105,16 @@ public abstract class RecordProcessor {
     protected byte[] readRecord(BufferedInputStream bis) throws IOException {
         if (fileType.isVariableLength()) {
             return readVariableLengthRecord(bis);
+        } else if (isUtf8Source() && fileType.hasKanjiConversion()) {
+            // UTF-8入力かつ混合文字コードファイル(FILE_C/D)の場合は文字数ベースで読み込み
+            return readCharacterBasedRecord(bis, fileType.getRecordLength());
         } else {
             return readFixedLengthRecord(bis, fileType.getRecordLength());
         }
     }
 
     /**
-     * 固定長レコードを読み込む
+     * 固定長レコードを読み込む(バイトベース)
      */
     private byte[] readFixedLengthRecord(BufferedInputStream bis, int recordLength) throws IOException {
         byte[] record = new byte[recordLength];
@@ -127,6 +130,71 @@ public abstract class RecordProcessor {
         }
         
         return record;
+    }
+
+    /**
+     * 文字数ベースでレコードを読み込む(UTF-8用)
+     * 
+     * @param bis 入力ストリーム
+     * @param characterCount 読み込む文字数
+     * @return 読み込んだレコード（バイト配列）
+     * @throws IOException 読み込みエラー
+     */
+    private byte[] readCharacterBasedRecord(BufferedInputStream bis, int characterCount) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        Charset charset = parameters.getSourceCharsetSingle();
+        int charsRead = 0;
+        
+        // バイトバッファ（最大4バイト = UTF-8の最大文字長）
+        byte[] byteBuffer = new byte[4];
+        
+        while (charsRead < characterCount) {
+            // 1バイト読み込み
+            int b = bis.read();
+            if (b == -1) {
+                if (charsRead == 0) {
+                    return null;  // EOF
+                } else {
+                    throw new IOException("Unexpected EOF: expected " + characterCount + 
+                                         " characters, got " + charsRead + " characters");
+                }
+            }
+            
+            byteBuffer[0] = (byte) b;
+            int byteCount = 1;
+            
+            // UTF-8のバイト数を判定
+            if ((b & 0x80) == 0) {
+                // 1バイト文字 (0xxxxxxx)
+                byteCount = 1;
+            } else if ((b & 0xE0) == 0xC0) {
+                // 2バイト文字 (110xxxxx)
+                byteCount = 2;
+            } else if ((b & 0xF0) == 0xE0) {
+                // 3バイト文字 (1110xxxx)
+                byteCount = 3;
+            } else if ((b & 0xF8) == 0xF0) {
+                // 4バイト文字 (11110xxx)
+                byteCount = 4;
+            } else {
+                throw new IOException("Invalid UTF-8 byte sequence: 0x" + Integer.toHexString(b & 0xFF));
+            }
+            
+            // 残りのバイトを読み込み
+            for (int i = 1; i < byteCount; i++) {
+                int nextByte = bis.read();
+                if (nextByte == -1) {
+                    throw new IOException("Incomplete UTF-8 character at position " + charsRead);
+                }
+                byteBuffer[i] = (byte) nextByte;
+            }
+            
+            // バッファに追加
+            buffer.write(byteBuffer, 0, byteCount);
+            charsRead++;
+        }
+        
+        return buffer.toByteArray();
     }
 
     /**

@@ -6,14 +6,14 @@ package com.example.batch.config;
  */
 public enum FileType {
     /**
-     * FILE_A: 210バイト固定長、1バイト文字のみ、全体変換
+     * FILE_A: 1バイト文字のみ、ファイル全体一括変換
      */
-    FILE_A(210, false, false),
+    FILE_A(0, false, false),
     
     /**
-     * FILE_B: 210バイト固定長、1バイト文字のみ、全体変換
+     * FILE_B: 1バイト文字のみ、ファイル全体一括変換
      */
-    FILE_B(210, false, false),
+    FILE_B(0, false, false),
     
     /**
      * FILE_C: 380バイト固定長、1バイト+2バイト混合、部分変換
@@ -55,7 +55,7 @@ public enum FileType {
     /**
      * レコード長を取得
      * 
-     * @return レコード長(バイト)。可変長の場合は0
+     * @return レコード長(バイト)。可変長またはファイル全体変換の場合は0
      */
     public int getRecordLength() {
         return recordLength;
