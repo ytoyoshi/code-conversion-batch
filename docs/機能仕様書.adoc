@@ -181,17 +181,17 @@ file.id=FILE_C
 
 . コマンドライン引数からパラメータファイルパスを取得する。
 
-. パラメータファイルを読み込み、key=value 形式でパースし、コード変換パラメータクラス（BatchParameters）を生成する。
+. パラメータファイルを読み込み、key=value 形式でパースし、処理指示パラメータを生成する。
 
 . <<_処理指示パラメータのチェック,処理指示パラメータのチェック>> を呼び出し、パラメータチェックを実行する。
 .. エラーが存在した場合、エラーメッセージを出力し、終了コード 2（処理指示パラメータエラー）で終了する。
 
-. file.id の値に応じて、適切なレコードプロセッサを選択する。
-.. FILE_A または FILE_B の場合 → FileABProcessor を生成
-.. FILE_C または FILE_D の場合 → FileCDProcessor を生成
-.. FILE_E または FILE_F の場合 → FileEFProcessor を生成
+. file.id の値に応じて、適切なファイル処理クラスを選択する。
+.. FILE_A または FILE_B の場合 → シンプル全体変換処理
+.. FILE_C または FILE_D の場合 → 混合文字コード部分変換処理
+.. FILE_E または FILE_F の場合 → 可変長レコード変換処理
 
-. 選択したレコードプロセッサの <<_ファイル処理,ファイル処理>> を呼び出し、入力ファイルパスと出力ファイルパスを渡す。
+. 選択したファイル処理クラスの <<_ファイル処理,ファイル処理>> を呼び出し、入力ファイルパスと出力ファイルパスを渡す。
 .. 文字コード変換エラーが発生した場合、エラー内容をログ出力し、終了コード 3 で終了する。
 .. その他のエラーが発生した場合、エラー内容をログ出力し、終了コード 99 で終了する。
 
@@ -203,7 +203,7 @@ file.id=FILE_C
 
 ==== パラメータ
 
-* コード変換パラメータクラス（BatchParameters）
+* 処理指示パラメータ
 
 ==== 処理内容
 
@@ -217,7 +217,7 @@ file.id=FILE_C
 .. file.id
 
 . file.id の妥当性チェックを行う。
-.. FileType.fromString() を呼び出し、file.id が FILE_A ～ FILE_F のいずれかであることを確認する。
+.. file.id が FILE_A ～ FILE_F のいずれかであることを確認する。
 .. 不正な値の場合、IllegalArgumentException をスローする。
 
 . 文字コードの妥当性チェックを行う。
@@ -245,9 +245,9 @@ file.id=FILE_C
 
 . 処理開始ログを出力する（ファイルタイプ、入出力パス、変換元/先文字コード）。
 
-. 入力ファイルを BufferedInputStream でオープンする。
+. 入力ファイルをオープンする。
 
-. 出力ファイルを BufferedOutputStream でオープンする。
+. 出力ファイルをオープンする。
 
 . レコード数カウンタ、エラー数カウンタを 0 で初期化する。
 
@@ -275,9 +275,9 @@ file.id=FILE_C
 
 ===== 固定長レコード（FILE_A, FILE_B, FILE_C, FILE_D）
 
-. FileType から取得したレコード長分のバイト配列を用意する。
+. ファイルタイプから取得したレコード長分のバイト配列を用意する。
 
-. BufferedInputStream から指定バイト数を読み込む。
+. 入力ファイルから指定バイト数を読み込む。
 
 . 読み込みバイト数がレコード長と一致しない場合、IOException をスローする（レコード不完全エラー）。
 
@@ -305,7 +305,7 @@ file.id=FILE_C
 
 レコード変換処理は、ファイルタイプ（FILE_A ～ FILE_F）により処理内容が異なる。
 
-==== FILE_A / FILE_B 処理（FileABProcessor）
+==== FILE_A / FILE_B 処理
 
 ===== 概要
 
@@ -332,7 +332,7 @@ file.id=FILE_C
 
 <<<
 
-==== FILE_C / FILE_D 処理（FileCDProcessor）
+==== FILE_C / FILE_D 処理
 
 ===== 概要
 
@@ -445,13 +445,11 @@ file.id=FILE_C
 
 . 漢字フィールド定義リストをループ処理する。
 .. 現在位置から漢字フィールド開始位置までのバイト配列を抽出する（1バイト文字部分）。
-... extractByBytePosition() を使用
 .. 業務共通クラス CodeConverter の convertCharset() を呼び出し、1バイト文字を変換する。
 ... 引数：1バイト文字のバイト配列, sourceCharsetSingle, targetCharsetSingle
 ... 返却値：変換後のバイト配列
 .. 変換後のバイト配列を結果バッファに追加する。
 .. 漢字フィールドのバイト配列を抽出する。
-... extractByBytePosition() を使用
 .. 業務共通クラス CodeConverter の convertDoubleByteCharset() を呼び出し、漢字フィールドを変換する。
 ... 引数：漢字フィールドのバイト配列, sourceCharsetDouble, targetCharsetDouble
 ... 返却値：変換後のバイト配列
@@ -459,7 +457,6 @@ file.id=FILE_C
 .. 現在位置を漢字フィールド終了位置+1に更新する。
 
 . 残りのバイト配列（最後の漢字フィールド以降）を抽出し、1バイト文字として変換する。
-.. extractByBytePosition() を使用
 
 . 業務共通クラス CodeConverter の convertCharset() を呼び出す。
 .. 引数：残り部分のバイト配列, sourceCharsetSingle, targetCharsetSingle
@@ -471,7 +468,7 @@ file.id=FILE_C
 
 <<<
 
-==== FILE_E / FILE_F 処理（FileEFProcessor）
+==== FILE_E / FILE_F 処理
 
 ===== 概要
 
@@ -504,15 +501,12 @@ file.id=FILE_C
 .. 不正な場合、IllegalArgumentException をスローする。
 
 . レコードの0-3バイト目からブロック長を読み込む（ビッグエンディアン）。
-.. readInt32BigEndian() を使用
 
 . レコードの4-7バイト目からレコード長を読み込む（ビッグエンディアン）。
-.. readInt32BigEndian() を使用
 
 . ログ出力：元のブロック長、レコード長
 
 . データ部分（8バイト目以降）を抽出する。
-.. バイト配列を新規作成し、System.arraycopy() でコピー
 
 . 業務共通クラス CodeConverter の convertCharset() を呼び出し、データ部分を変換する。
 .. 引数：データ部分のバイト配列, sourceCharsetSingle, targetCharsetSingle
@@ -528,11 +522,8 @@ file.id=FILE_C
 . ログ出力：変換後のブロック長、レコード長、データ長
 
 . 結果バイト配列を組み立てる。
-.. ByteArrayOutputStream を使用
 .. 新しいブロック長（4バイト、ビッグエンディアン）を書き込む
-... writeInt32BigEndian() を使用
 .. 新しいレコード長（4バイト、ビッグエンディアン）を書き込む
-... writeInt32BigEndian() を使用
 .. 変換後のデータを書き込む
 
 . 結果バイト配列を返却する。
