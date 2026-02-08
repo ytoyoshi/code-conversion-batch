@@ -49,13 +49,8 @@ public class EncodingBatchMain {
             String paramFilePath = args[0];
             LOGGER.info("Parameter file: {}", paramFilePath);
 
-            // パラメータ読み込み
+            // パラメータ読み込み（バリデーション含む）
             BatchParameters parameters = loadParameters(paramFilePath);
-            LOGGER.info("Parameters loaded successfully");
-
-            // パラメータ検証
-            validateParameters(parameters);
-            LOGGER.info("Parameters validated successfully");
 
             // ファイル処理
             processFile(parameters);
@@ -86,30 +81,24 @@ public class EncodingBatchMain {
      */
     private static BatchParameters loadParameters(String paramFilePath) throws Exception {
         try {
-            return BatchParameters.loadFromFile(paramFilePath);
+            BatchParameters parameters = BatchParameters.loadFromFile(paramFilePath);
+            
+            LOGGER.info("Parameters loaded and validated successfully");
+            LOGGER.info("  File ID: {}", parameters.getFileId());
+            LOGGER.info("  Input file: {}", parameters.getInputFilePath());
+            LOGGER.info("  Output file: {}", parameters.getOutputFilePath());
+            LOGGER.info("  Source charset: single={}, double={}", 
+                       parameters.getSourceCharsetSingleName(),
+                       parameters.getSourceCharsetDoubleName());
+            LOGGER.info("  Target charset: single={}, double={}", 
+                       parameters.getTargetCharsetSingleName(),
+                       parameters.getTargetCharsetDoubleName());
+            
+            return parameters;
         } catch (Exception e) {
             LOGGER.error("Failed to load parameters from file: {}", paramFilePath, e);
             throw e;
         }
-    }
-
-    /**
-     * パラメータの妥当性を検証
-     * 
-     * @param parameters バッチパラメータ
-     * @throws IllegalArgumentException 検証エラー
-     */
-    private static void validateParameters(BatchParameters parameters) {
-        LOGGER.info("Validating parameters...");
-        LOGGER.info("  File ID: {}", parameters.getFileId());
-        LOGGER.info("  Input file: {}", parameters.getInputFilePath());
-        LOGGER.info("  Output file: {}", parameters.getOutputFilePath());
-        LOGGER.info("  Source charset: single={}, double={}", 
-                   parameters.getSourceCharsetSingleName(),
-                   parameters.getSourceCharsetDoubleName());
-        LOGGER.info("  Target charset: single={}, double={}", 
-                   parameters.getTargetCharsetSingleName(),
-                   parameters.getTargetCharsetDoubleName());
     }
 
     /**
