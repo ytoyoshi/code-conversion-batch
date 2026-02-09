@@ -1,0 +1,168 @@
+@startuml class-diagram
+
+!define ENTITY_COLOR #E8F5E9
+!define PROCESSOR_COLOR #E3F2FD
+!define UTIL_COLOR #FFF3E0
+!define CONSTANT_COLOR #F3E5F5
+
+package "com.example.batch" {
+    
+    class EncodingBatchMain <<Main>> {
+        - {static} EXIT_CODE_SUCCESS: int = 0
+        - {static} EXIT_CODE_ARGS_ERROR: int = 1
+        - {static} EXIT_CODE_PARAM_ERROR: int = 2
+        - {static} EXIT_CODE_CONVERSION_ERROR: int = 3
+        - {static} EXIT_CODE_UNEXPECTED_ERROR: int = 99
+        --
+        + {static} main(args: String[]): void
+        - {static} execute(args: String[]): int
+        - {static} executeWholeFileConversion(param: BatchParameter): void
+        - {static} executeMixedFileConversion(param: BatchParameter): void
+        - {static} executeVariableLengthConversion(param: BatchParameter): void
+    }
+    
+    package "constant" CONSTANT_COLOR {
+        enum FileType {
+            FILE_A
+            FILE_B
+            FILE_C
+            FILE_D
+            FILE_E
+            FILE_F
+            --
+            + {static} fromString(value: String): FileType
+        }
+    }
+    
+    package "param" ENTITY_COLOR {
+        class BatchParameter {
+            - {static} SUPPORTED_CHARSETS: Set<String>
+            - inputFilePath: String
+            - outputFilePath: String
+            - sourceCharsetSingle: String
+            - sourceCharsetDouble: String
+            - targetCharsetSingle: String
+            - targetCharsetDouble: String
+            - fileId: FileType
+            --
+            + {static} load(parameterFilePath: String): BatchParameter
+            - {static} getRequiredProperty(props: Properties, key: String): String
+            - validateCharset(charsetName: String, paramName: String): void
+            - validateSupportedCharset(charsetName: String, paramName: String): void
+            - logParameters(): void
+            + getInputFilePath(): String
+            + getOutputFilePath(): String
+            + getSourceCharsetSingle(): String
+            + getSourceCharsetDouble(): String
+            + getTargetCharsetSingle(): String
+            + getTargetCharsetDouble(): String
+            + getFileId(): FileType
+        }
+    }
+    
+    package "processor" PROCESSOR_COLOR {
+        class WholeFileConverter {
+            - param: BatchParameter
+            --
+            + WholeFileConverter(param: BatchParameter)
+            + execute(): void
+            - readInputFile(): byte[]
+            - convertWholeFile(inputBytes: byte[]): byte[]
+            - writeOutputFile(outputBytes: byte[]): void
+        }
+        
+        class MixedFileConverter {
+            - {static} RECORD_LENGTH: int = 380
+            - {static} HEADER_RECORD_TYPE: byte = '1'
+            - {static} DATA_RECORD_TYPE: byte = '2'
+            - {static} DATA_TYPE_1: byte = '1'
+            - {static} DATA_TYPE_2: byte = '2'
+            - {static} KANJI_FIELD_DEFS: Map<Byte, KanjiFieldDefinition[]>
+            - param: BatchParameter
+            --
+            + MixedFileConverter(param: BatchParameter)
+            + execute(): void
+            - convertHeaderRecord(record: byte[], length: int): byte[]
+            - convertDataRecord(record: byte[], length: int): byte[]
+            - extractBytes(source: byte[], startPos: int, endPos: int): byte[]
+        }
+        
+        class "MixedFileConverter.KanjiFieldDefinition" as KanjiFieldDef {
+            + startPos: int
+            + endPos: int
+            --
+            + KanjiFieldDefinition(startPos: int, endPos: int)
+        }
+        
+        class VariableLengthConverter {
+            - {static} BDW_SIZE: int = 4
+            - {static} RDW_SIZE: int = 4
+            - {static} FIXED_PART_SIZE: int = 26
+            - {static} MESSAGE_LEN_SIZE: int = 2
+            - {static} TERMINATOR_SIZE: int = 1
+            - param: BatchParameter
+            - isToEbcdic: boolean
+            --
+            + VariableLengthConverter(param: BatchParameter)
+            + execute(): void
+            - processBlock(bis: BufferedInputStream, blockNumber: int): byte[]
+            - processRecord(recordData: byte[]): byte[]
+            - extractField(data: byte[], offset: int, length: int): byte[]
+            - bytesToInt(bytes: byte[]): int
+            - intToBytes(value: int): byte[]
+            - convertControlCharacter(data: byte[], isToEbcdic: boolean): byte[]
+        }
+    }
+    
+    package "util" UTIL_COLOR {
+        class CodeConverter <<Utility>> {
+            - {static} ESC_TO_JIS_KANJI: byte[] = {0x1B, 0x24, 0x42}
+            - {static} ESC_TO_ASCII: byte[] = {0x1B, 0x28, 0x42}
+            --
+            + {static} convertCharset(sourceBytes: byte[], sourceCharset: String, targetCharset: String): byte[]
+            + {static} convertKanjiCharset(sourceBytes: byte[], sourceCharset: String, targetCharset: String): byte[]
+            - {static} isIso2022Jp(charset: String): boolean
+            - {static} addEscSequence(kanjiBytes: byte[]): byte[]
+            - {static} removeEscSequence(iso2022JpBytes: byte[]): byte[]
+        }
+    }
+}
+
+' 関係性の定義
+EncodingBatchMain ..> BatchParameter : uses
+EncodingBatchMain ..> WholeFileConverter : creates
+EncodingBatchMain ..> MixedFileConverter : creates
+EncodingBatchMain ..> VariableLengthConverter : creates
+
+BatchParameter --> FileType : has
+
+WholeFileConverter --> BatchParameter : has
+WholeFileConverter ..> CodeConverter : uses
+
+MixedFileConverter --> BatchParameter : has
+MixedFileConverter ..> CodeConverter : uses
+MixedFileConverter +-- KanjiFieldDef : inner class
+
+VariableLengthConverter --> BatchParameter : has
+VariableLengthConverter ..> CodeConverter : uses
+
+note right of CodeConverter
+  業務共通ユーティリティクラス
+  ・通常文字コード変換
+  ・漢字文字コード変換
+  ・ISO-2022-JP ESCシーケンス処理
+end note
+
+note right of VariableLengthConverter
+  可変長ファイル専用処理
+  ・制御文字変換（0xB4 ⇔ 0x74）
+end note
+
+note right of FileType
+  サポートするファイルタイプ
+  ・FILE_A, FILE_B: 1バイト文字のみ
+  ・FILE_C, FILE_D: 混合文字
+  ・FILE_E, FILE_F: 可変長
+end note
+
+@enduml
