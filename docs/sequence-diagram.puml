@@ -120,7 +120,7 @@ else FILE_C または FILE_D
             Mixed -> Mixed: レコード区分判定 (1バイト目)
             
             alt ヘッダー/トレーラー/エンド
-                Mixed -> Mixed: convertHeaderRecord()
+                Mixed -> Mixed: convertSimpleRecord()
                 Mixed -> Util: convertCharset(record, srcSingle, tgtSingle)
                 activate Util
                 Util --> Mixed: 変換後レコード

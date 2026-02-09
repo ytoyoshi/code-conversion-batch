@@ -139,7 +139,7 @@ public class MixedFileConverter {
                 byte[] converted;
                 if (recordType == HEADER_RECORD_TYPE) {
                     // ヘッダーレコード: 1バイト文字のみ全体変換
-                    converted = convertSimpleRecord(line);
+                    converted = convertSimpleRecord(line.getBytes(sourceCharset));
                     headerCount++;
                     
                 } else if (recordType == DATA_RECORD_TYPE) {
@@ -149,12 +149,12 @@ public class MixedFileConverter {
                     
                 } else if (recordType == TRAILER_RECORD_TYPE) {
                     // トレーラーレコード: 1バイト文字のみ全体変換
-                    converted = convertSimpleRecord(line);
+                    converted = convertSimpleRecord(line.getBytes(sourceCharset));
                     trailerCount++;
                     
                 } else if (recordType == END_RECORD_TYPE) {
                     // エンドレコード: 1バイト文字のみ全体変換
-                    converted = convertSimpleRecord(line);
+                    converted = convertSimpleRecord(line.getBytes(sourceCharset));
                     endCount++;
                     
                 } else {
@@ -205,7 +205,9 @@ public class MixedFileConverter {
                 byte[] converted;
                 if (recordType == HEADER_RECORD_TYPE) {
                     // ヘッダーレコード: 1バイト文字のみ全体変換
-                    converted = convertHeaderRecord(record, bytesRead);
+                    byte[] target = new byte[bytesRead];
+                    System.arraycopy(record, 0, target, 0, bytesRead);
+                    converted = convertSimpleRecord(target);
                     headerCount++;
                     
                 } else if (recordType == DATA_RECORD_TYPE) {
@@ -215,12 +217,16 @@ public class MixedFileConverter {
                     
                 } else if (recordType == TRAILER_RECORD_TYPE) {
                     // トレーラーレコード: 1バイト文字のみ全体変換
-                    converted = convertHeaderRecord(record, bytesRead);
+                    byte[] target = new byte[bytesRead];
+                    System.arraycopy(record, 0, target, 0, bytesRead);
+                    converted = convertSimpleRecord(target);
                     trailerCount++;
                     
                 } else if (recordType == END_RECORD_TYPE) {
                     // エンドレコード: 1バイト文字のみ全体変換
-                    converted = convertHeaderRecord(record, bytesRead);
+                    byte[] target = new byte[bytesRead];
+                    System.arraycopy(record, 0, target, 0, bytesRead);
+                    converted = convertSimpleRecord(target);
                     endCount++;
                     
                 } else {
@@ -240,16 +246,15 @@ public class MixedFileConverter {
     }
     
     /**
-     * シンプルなレコードを変換する（文字数ベース）。
-     * ヘッダー、トレーラー、エンドレコード用。
+     * シンプルなレコードを変換する（ヘッダー、トレーラー、エンドレコード用）。
      * 
-     * @param line レコード文字列
+     * @param data レコードデータ（文字列またはバイト配列から変換）
      * @return 変換後バイト配列
      */
-    private byte[] convertSimpleRecord(String line) {
-        // 文字列として全体変換
+    private byte[] convertSimpleRecord(byte[] data) {
+        // レコード全体を1バイト文字として扱う
         return CodeConverter.convertCharset(
-            line.getBytes(Charset.forName(param.getSourceCharsetSingle())),
+            data,
             param.getSourceCharsetSingle(),
             param.getTargetCharsetSingle()
         );
@@ -325,26 +330,7 @@ public class MixedFileConverter {
     }
     
     /**
-     * ヘッダー/トレーラー/エンドレコードを変換する（バイト数ベース）。
-     * 
-     * @param record レコードバイト配列
-     * @param length 有効バイト長
-     * @return 変換後バイト配列
-     */
-    private byte[] convertHeaderRecord(byte[] record, int length) {
-        // レコード全体を1バイト文字として扱う
-        byte[] target = new byte[length];
-        System.arraycopy(record, 0, target, 0, length);
-        
-        return CodeConverter.convertCharset(
-            target,
-            param.getSourceCharsetSingle(),
-            param.getTargetCharsetSingle()
-        );
-    }
-    
-    /**
-     * データレコードを変換する（バイト数ベース）。
+     * データレコードを変換する（文字数ベース）。
      * 
      * @param record レコードバイト配列
      * @param length 有効バイト長

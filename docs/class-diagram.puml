@@ -75,14 +75,20 @@ package "com.example.batch" {
             - {static} RECORD_LENGTH: int = 380
             - {static} HEADER_RECORD_TYPE: byte = '1'
             - {static} DATA_RECORD_TYPE: byte = '2'
+            - {static} TRAILER_RECORD_TYPE: byte = '8'
+            - {static} END_RECORD_TYPE: byte = '9'
             - {static} DATA_TYPE_1: byte = '1'
             - {static} DATA_TYPE_2: byte = '2'
             - {static} KANJI_FIELD_DEFS: Map<Byte, KanjiFieldDefinition[]>
             - param: BatchParameter
+            - isUtf8Source: boolean
             --
             + MixedFileConverter(param: BatchParameter)
             + execute(): void
-            - convertHeaderRecord(record: byte[], length: int): byte[]
+            - executeCharacterBased(): void
+            - executeByteBased(): void
+            - convertSimpleRecord(data: byte[]): byte[]
+            - convertDataRecordCharacterBased(line: String): byte[]
             - convertDataRecord(record: byte[], length: int): byte[]
             - extractBytes(source: byte[], startPos: int, endPos: int): byte[]
         }
