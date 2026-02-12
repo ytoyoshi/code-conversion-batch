@@ -6,6 +6,7 @@ participant "BatchParameter" as Param
 participant "WholeFileConverter\n(FILE_A/B)" as Whole
 participant "MixedFileConverter\n(FILE_C/D)" as Mixed
 participant "VariableLengthConverter\n(FILE_E/F)" as Variable
+participant "FileConversionUtil" as FileUtil
 participant "CodeConverter" as Util
 
 == 起動・パラメータ読み込み ==
@@ -25,8 +26,10 @@ Param -> Param: ファイル存在チェック
 Param -> Param: プロパティファイル読み込み
 Param -> Param: 必須パラメータチェック
 Param -> Param: ファイルID妥当性チェック
+Param -> Param: 2バイト文字コード条件付きチェック\n(FILE_C/D時のみ必須)
 Param -> Param: 文字コード妥当性チェック
 Param -> Param: サポート文字コードチェック
+Param -> Param: 漢字変換フラグ設定\n(convertDoubleByteCharset)
 Param -> Param: logParameters()
 
 alt パラメータエラー
@@ -48,16 +51,24 @@ alt FILE_A または FILE_B
     Main -> Whole: execute()
     
     Whole -> Whole: readInputFile()
-    note right: ファイル全体読み込み
+    note right: Files.readAllBytes()
     
-    Whole -> Util: convertCharset(bytes, srcCharset, tgtCharset)
+    Whole -> FileUtil: convertWholeFile(inputBytes, sourceCharset, targetCharset)
+    activate FileUtil
+    
+    FileUtil -> Util: convertCharset(inputBytes, sourceCharset, targetCharset)
     activate Util
-    Util -> Util: 文字コード変換実行
-    Util --> Whole: 変換後バイト列
+    Util --> FileUtil: 変換後バイト配列
     deactivate Util
     
+    FileUtil -> FileUtil: updateHeaderCodeType(data, 210, targetCharset)
+    note right: ヘッダーレコードの\nコード区分を更新
+    
+    FileUtil --> Whole: 変換後バイト配列
+    deactivate FileUtil
+    
     Whole -> Whole: writeOutputFile(outputBytes)
-    note right: ファイル全体書き込み
+    note right: Files.write()
     
     Whole --> Main: 完了
     deactivate Whole
@@ -68,92 +79,101 @@ else FILE_C または FILE_D
     activate Mixed
     Main -> Mixed: execute()
     
-    Mixed -> Mixed: UTF-8判定
+    Mixed -> Mixed: readInputFile()
+    note right: Files.readAllBytes()
+    
+    Mixed -> Mixed: new MixedFileConversionConfig(...)
+    note right: BatchParameterから\n設定オブジェクトを作成
+    
+    Mixed -> FileUtil: convertMixedFile(inputBytes, config)
+    activate FileUtil
+    
+    FileUtil -> FileUtil: isUtf8(sourceCharsetSingle)
     
     alt UTF-8の場合
-        note right: 文字数ベース処理
+        FileUtil -> FileUtil: convertMixedFileCharacterBased(inputBytes, config)
+        note right: 文字数ベース処理\n(先読み方式)
         
-        loop 各レコード（BufferedReader）
-            Mixed -> Mixed: 1行読み込み (380文字)
-            Mixed -> Mixed: レコード区分判定 (1文字目)
+        loop 各レコード
+            FileUtil -> FileUtil: レコード区分先読み
             
-            alt ヘッダー/トレーラー/エンド
-                Mixed -> Mixed: convertSimpleRecord()
-                Mixed -> Util: convertCharset(record, srcSingle, tgtSingle)
-                activate Util
-                Util --> Mixed: 変換後レコード
-                deactivate Util
+            alt データレコード
+                FileUtil -> FileUtil: データ種別先読み
+                FileUtil -> FileUtil: 残り文字数決定\n(種別=1: 348文字\n種別=2: 298文字)
+                FileUtil -> FileUtil: readFully()
+                FileUtil -> FileUtil: convertDataRecordCharacterBased()
                 
-            else データレコード
-                Mixed -> Mixed: convertDataRecordCharacterBased()
-                Mixed -> Mixed: データ種別判定 (2文字目)
-                Mixed -> Mixed: 漢字項目定義取得
-                
-                loop 各フィールド（文字位置）
-                    alt 1バイト文字フィールド
-                        Mixed -> Util: convertCharset(field, srcSingle, tgtSingle)
+                loop 各フィールド
+                    alt 1バイト文字
+                        FileUtil -> Util: convertCharset()
                         activate Util
-                        Util --> Mixed: 変換後フィールド
+                        Util --> FileUtil
                         deactivate Util
-                        
                     else 漢字フィールド
-                        Mixed -> Util: convertKanjiCharset(field, srcDouble, tgtDouble)
-                        activate Util
-                        Util -> Util: ESCシーケンス処理
-                        Util -> Util: 文字コード変換
-                        Util --> Mixed: 変換後フィールド
-                        deactivate Util
+                        alt convertDoubleByteCharset == true
+                            FileUtil -> Util: convertKanjiCharset()
+                            activate Util
+                            Util --> FileUtil
+                            deactivate Util
+                        else
+                            FileUtil -> FileUtil: そのまま出力
+                        end
                     end
                 end
                 
-                Mixed -> Mixed: 変換後レコード構築
+            else ヘッダー/トレーラー/エンド
+                FileUtil -> FileUtil: 残り379文字読み込み
+                FileUtil -> FileUtil: convertSimpleRecord()
+                FileUtil -> Util: convertCharset()
+                activate Util
+                Util --> FileUtil
+                deactivate Util
+                FileUtil -> FileUtil: ヘッダーなら\nコード区分更新
             end
-            
-            Mixed -> Mixed: 出力ファイルへ書き込み
         end
         
-    else UTF-8以外の場合
+    else UTF-8以外
+        FileUtil -> FileUtil: convertMixedFileByteBased(inputBytes, config)
         note right: バイト数ベース処理
         
-        loop 各レコード（InputStream）
-            Mixed -> Mixed: レコード読み込み (380 bytes)
-            Mixed -> Mixed: レコード区分判定 (1バイト目)
-            
-            alt ヘッダー/トレーラー/エンド
-                Mixed -> Mixed: convertSimpleRecord()
-                Mixed -> Util: convertCharset(record, srcSingle, tgtSingle)
-                activate Util
-                Util --> Mixed: 変換後レコード
-                deactivate Util
+        loop 各レコード(380バイト)
+            alt データレコード
+                FileUtil -> FileUtil: convertDataRecord()
                 
-            else データレコード
-                Mixed -> Mixed: convertDataRecord()
-                Mixed -> Mixed: データ種別判定 (2バイト目)
-                Mixed -> Mixed: 漢字項目定義取得
-                
-                loop 各フィールド（バイト位置）
-                    alt 1バイト文字フィールド
-                        Mixed -> Util: convertCharset(field, srcSingle, tgtSingle)
+                loop 各フィールド
+                    alt 1バイト文字
+                        FileUtil -> Util: convertCharset()
                         activate Util
-                        Util --> Mixed: 変換後フィールド
+                        Util --> FileUtil
                         deactivate Util
-                        
                     else 漢字フィールド
-                        Mixed -> Util: convertKanjiCharset(field, srcDouble, tgtDouble)
-                        activate Util
-                        Util -> Util: ESCシーケンス処理
-                        Util -> Util: 文字コード変換
-                        Util --> Mixed: 変換後フィールド
-                        deactivate Util
+                        alt convertDoubleByteCharset == true
+                            FileUtil -> Util: convertKanjiCharset()
+                            activate Util
+                            Util --> FileUtil
+                            deactivate Util
+                        else
+                            FileUtil -> FileUtil: そのまま出力
+                        end
                     end
                 end
                 
-                Mixed -> Mixed: 変換後レコード構築
+            else ヘッダー/トレーラー/エンド
+                FileUtil -> FileUtil: convertSimpleRecord()
+                FileUtil -> Util: convertCharset()
+                activate Util
+                Util --> FileUtil
+                deactivate Util
+                FileUtil -> FileUtil: ヘッダーなら\nコード区分更新
             end
-            
-            Mixed -> Mixed: 出力ファイルへ書き込み
         end
     end
+    
+    FileUtil --> Mixed: 変換後バイト配列
+    deactivate FileUtil
+    
+    Mixed -> Mixed: writeOutputFile(outputBytes)
+    note right: Files.write()
     
     Mixed --> Main: 完了
     deactivate Mixed
@@ -164,39 +184,55 @@ else FILE_E または FILE_F
     activate Variable
     Main -> Variable: execute()
     
+    Variable -> Variable: readInputFile()
+    note right: Files.readAllBytes()
+    
+    Variable -> FileUtil: convertVariableLengthFile(inputBytes, sourceCharsetSingle, targetCharsetSingle)
+    activate FileUtil
+    
+    FileUtil -> FileUtil: isTargetEbcdic(targetCharsetSingle)
+    
     loop 各ブロック
-        Variable -> Variable: BDW読み込み
-        Variable -> Variable: ブロックデータ読み込み
-        Variable -> Variable: processRecord()
+        FileUtil -> FileUtil: BDW読み込み
+        FileUtil -> FileUtil: processBlock()
         
-        Variable -> Variable: RDW、固定部、電文長、電文、終端抽出
+        FileUtil -> FileUtil: processRecord()
         
-        Variable -> Util: convertCharset(fixedPart, srcCharset, tgtCharset)
+        FileUtil -> FileUtil: 固定部抽出
+        FileUtil -> Util: convertCharset(固定部)
         activate Util
-        Util --> Variable: 変換後固定部
+        Util --> FileUtil
         deactivate Util
         
-        Variable -> Util: convertCharset(message, srcCharset, tgtCharset)
+        FileUtil -> FileUtil: 電文長・電文抽出
+        FileUtil -> Util: convertCharset(電文)
         activate Util
-        Util --> Variable: 変換後電文
+        Util --> FileUtil
         deactivate Util
         
-        Variable -> Variable: convertControlCharacter(terminator, isToEbcdic)
-        note right: 内部メソッド\n0xB4 ⇔ 0x74 変換
+        FileUtil -> FileUtil: 終端符号抽出
+        FileUtil -> FileUtil: convertControlCharacter(終端符号, isToEbcdic)
+        note right: 0xB4 ⇔ 0x74 変換
         
-        Variable -> Variable: 電文長再計算
-        Variable -> Variable: RDW再計算
-        Variable -> Variable: BDW再計算
-        Variable -> Variable: 変換後ブロック構築
-        Variable -> Variable: 出力ファイルへ書き込み
+        FileUtil -> FileUtil: 新しい電文長計算
+        FileUtil -> FileUtil: 新しいRDW計算
+        FileUtil -> FileUtil: レコード再構築
+        
+        FileUtil -> FileUtil: 新しいBDW計算
+        FileUtil -> FileUtil: ブロック再構築
     end
+    
+    FileUtil --> Variable: 変換後バイト配列
+    deactivate FileUtil
+    
+    Variable -> Variable: writeOutputFile(outputBytes)
+    note right: Files.write()
     
     Variable --> Main: 完了
     deactivate Variable
     
 end
 
-== 正常終了 ==
 Main -> User: 終了コード 0
 deactivate Main
 

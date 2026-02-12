@@ -1,6 +1,7 @@
 @startuml class-diagram
 
 !define ENTITY_COLOR #E8F5E9
+!define MODEL_COLOR #E1F5FE
 !define PROCESSOR_COLOR #E3F2FD
 !define UTIL_COLOR #FFF3E0
 !define CONSTANT_COLOR #F3E5F5
@@ -44,6 +45,7 @@ package "com.example.batch" {
             - targetCharsetSingle: String
             - targetCharsetDouble: String
             - fileId: FileType
+            - convertDoubleByteCharset: boolean
             --
             + {static} load(parameterFilePath: String): BatchParameter
             - {static} getRequiredProperty(props: Properties, key: String): String
@@ -57,6 +59,33 @@ package "com.example.batch" {
             + getTargetCharsetSingle(): String
             + getTargetCharsetDouble(): String
             + getFileId(): FileType
+            + isConvertDoubleByteCharset(): boolean
+        }
+    }
+    
+    package "model" MODEL_COLOR {
+        class KanjiFieldDefinition {
+            - startPos: int
+            - endPos: int
+            --
+            + KanjiFieldDefinition(startPos: int, endPos: int)
+            + getStartPos(): int
+            + getEndPos(): int
+        }
+        
+        class MixedFileConversionConfig {
+            - sourceCharsetSingle: String
+            - sourceCharsetDouble: String
+            - targetCharsetSingle: String
+            - targetCharsetDouble: String
+            - convertDoubleByteCharset: boolean
+            --
+            + MixedFileConversionConfig(...)
+            + getSourceCharsetSingle(): String
+            + getSourceCharsetDouble(): String
+            + getTargetCharsetSingle(): String
+            + getTargetCharsetDouble(): String
+            + isConvertDoubleByteCharset(): boolean
         }
     }
     
@@ -67,74 +96,83 @@ package "com.example.batch" {
             + WholeFileConverter(param: BatchParameter)
             + execute(): void
             - readInputFile(): byte[]
-            - convertWholeFile(inputBytes: byte[]): byte[]
             - writeOutputFile(outputBytes: byte[]): void
         }
         
         class MixedFileConverter {
-            - {static} RECORD_LENGTH: int = 380
+            - param: BatchParameter
+            --
+            + MixedFileConverter(param: BatchParameter)
+            + execute(): void
+            - readInputFile(): byte[]
+            - writeOutputFile(outputBytes: byte[]): void
+        }
+        
+        class VariableLengthConverter {
+            - param: BatchParameter
+            --
+            + VariableLengthConverter(param: BatchParameter)
+            + execute(): void
+            - readInputFile(): byte[]
+            - writeOutputFile(outputBytes: byte[]): void
+        }
+    }
+    
+    package "util" UTIL_COLOR {
+        class CodeConverter <<Utility>> {
+            --
+            + {static} convertCharset(data: byte[], sourceCharset: String, targetCharset: String): byte[]
+            + {static} convertKanjiCharset(data: byte[], sourceCharset: String, targetCharset: String): byte[]
+        }
+        
+        class FileConversionUtil <<Utility>> {
+            - {static} WHOLE_FILE_RECORD_LENGTH: int = 210
+            - {static} CODE_TYPE_POSITION: int = 5
+            - {static} MIXED_FILE_RECORD_LENGTH: int = 380
+            - {static} SIMPLE_RECORD_CHAR_LENGTH: int = 380
+            - {static} DATA_RECORD_CHAR_LENGTH_TYPE1: int = 350
+            - {static} DATA_RECORD_CHAR_LENGTH_TYPE2: int = 300
             - {static} HEADER_RECORD_TYPE: byte = '1'
             - {static} DATA_RECORD_TYPE: byte = '2'
             - {static} TRAILER_RECORD_TYPE: byte = '8'
             - {static} END_RECORD_TYPE: byte = '9'
             - {static} DATA_TYPE_1: byte = '1'
             - {static} DATA_TYPE_2: byte = '2'
-            - {static} KANJI_FIELD_DEFS: Map<Byte, KanjiFieldDefinition[]>
-            - param: BatchParameter
-            - isUtf8Source: boolean
-            --
-            + MixedFileConverter(param: BatchParameter)
-            + execute(): void
-            - executeCharacterBased(): void
-            - executeByteBased(): void
-            - convertSimpleRecord(data: byte[]): byte[]
-            - convertDataRecordCharacterBased(line: String): byte[]
-            - convertDataRecord(record: byte[], length: int): byte[]
-            - extractBytes(source: byte[], startPos: int, endPos: int): byte[]
-        }
-        
-        class "MixedFileConverter.KanjiFieldDefinition" as KanjiFieldDef {
-            + startPos: int
-            + endPos: int
-            --
-            + KanjiFieldDefinition(startPos: int, endPos: int)
-        }
-        
-        class VariableLengthConverter {
+            - {static} KANJI_FIELD_DEFS_CHARACTER: Map
+            - {static} KANJI_FIELD_DEFS_BYTE: Map
             - {static} BDW_SIZE: int = 4
             - {static} RDW_SIZE: int = 4
             - {static} FIXED_PART_SIZE: int = 26
+            - {static} MESSAGE_LEN_START: int = 30
             - {static} MESSAGE_LEN_SIZE: int = 2
+            - {static} MESSAGE_START: int = 32
             - {static} TERMINATOR_SIZE: int = 1
-            - param: BatchParameter
-            - isToEbcdic: boolean
             --
-            + VariableLengthConverter(param: BatchParameter)
-            + execute(): void
-            - processBlock(bis: BufferedInputStream, blockNumber: int): byte[]
-            - processRecord(recordData: byte[]): byte[]
-            - extractField(data: byte[], offset: int, length: int): byte[]
-            - bytesToInt(bytes: byte[]): int
-            - intToBytes(value: int): byte[]
-            - convertControlCharacter(data: byte[], isToEbcdic: boolean): byte[]
-        }
-    }
-    
-    package "util" UTIL_COLOR {
-        class CodeConverter <<Utility>> {
-            - {static} ESC_TO_JIS_KANJI: byte[] = {0x1B, 0x24, 0x42}
-            - {static} ESC_TO_ASCII: byte[] = {0x1B, 0x28, 0x42}
-            --
-            + {static} convertCharset(sourceBytes: byte[], sourceCharset: String, targetCharset: String): byte[]
-            + {static} convertKanjiCharset(sourceBytes: byte[], sourceCharset: String, targetCharset: String): byte[]
-            - {static} isIso2022Jp(charset: String): boolean
-            - {static} addEscSequence(kanjiBytes: byte[]): byte[]
-            - {static} removeEscSequence(iso2022JpBytes: byte[]): byte[]
+            + {static} convertWholeFile(inputBytes: byte[], sourceCharset: String, targetCharset: String): byte[]
+            + {static} convertMixedFile(inputBytes: byte[], config: MixedFileConversionConfig): byte[]
+            + {static} convertVariableLengthFile(inputBytes: byte[], sourceCharsetSingle: String, targetCharsetSingle: String): byte[]
+            - {static} updateHeaderCodeType(data: byte[], recordLength: int, targetCharset: String): void
+            - {static} convertMixedFileCharacterBased(inputBytes: byte[], config: MixedFileConversionConfig): byte[]
+            - {static} convertMixedFileByteBased(inputBytes: byte[], config: MixedFileConversionConfig): byte[]
+            - {static} convertSimpleRecord(data: byte[], sourceCharset: String, targetCharset: String): byte[]
+            - {static} convertDataRecordCharacterBased(line: String, config: MixedFileConversionConfig): byte[]
+            - {static} convertDataRecord(record: byte[], length: int, config: MixedFileConversionConfig): byte[]
+            - {static} getDataRecordRemainingChars(dataType: char): int
+            - {static} readFully(reader: Reader, buf: char[], len: int): int
+            - {static} extractBytes(source: byte[], startPos: int, endPos: int): byte[]
+            - {static} processBlock(blockData: byte[], sourceCharsetSingle: String, targetCharsetSingle: String, isToEbcdic: boolean): byte[]
+            - {static} processRecord(recordData: byte[], sourceCharsetSingle: String, targetCharsetSingle: String, isToEbcdic: boolean): byte[]
+            - {static} extractField(data: byte[], offset: int, length: int): byte[]
+            - {static} convertControlCharacter(data: byte[], isToEbcdic: boolean): byte[]
+            - {static} isTargetEbcdic(charset: String): boolean
+            - {static} isUtf8(charset: String): boolean
+            - {static} bytesToInt(bytes: byte[]): int
+            - {static} intToBytes(value: int): byte[]
         }
     }
 }
 
-' 関係性の定義
+' Relationships
 EncodingBatchMain ..> BatchParameter : uses
 EncodingBatchMain ..> WholeFileConverter : creates
 EncodingBatchMain ..> MixedFileConverter : creates
@@ -142,33 +180,35 @@ EncodingBatchMain ..> VariableLengthConverter : creates
 
 BatchParameter --> FileType : has
 
-WholeFileConverter --> BatchParameter : has
-WholeFileConverter ..> CodeConverter : uses
+WholeFileConverter --> BatchParameter : uses
+WholeFileConverter ..> FileConversionUtil : calls
 
-MixedFileConverter --> BatchParameter : has
-MixedFileConverter ..> CodeConverter : uses
-MixedFileConverter +-- KanjiFieldDef : inner class
+MixedFileConverter --> BatchParameter : uses
+MixedFileConverter ..> MixedFileConversionConfig : creates
+MixedFileConverter ..> FileConversionUtil : calls
 
-VariableLengthConverter --> BatchParameter : has
-VariableLengthConverter ..> CodeConverter : uses
+VariableLengthConverter --> BatchParameter : uses
+VariableLengthConverter ..> FileConversionUtil : calls
 
-note right of CodeConverter
-  業務共通ユーティリティクラス
-  ・通常文字コード変換
-  ・漢字文字コード変換
-  ・ISO-2022-JP ESCシーケンス処理
+FileConversionUtil ..> MixedFileConversionConfig : uses
+FileConversionUtil ..> KanjiFieldDefinition : uses
+FileConversionUtil ..> CodeConverter : calls
+
+note right of FileConversionUtil
+  ファイル変換ロジックを集約した
+  ユーティリティクラス。
+  各Converterから呼び出される。
 end note
 
-note right of VariableLengthConverter
-  可変長ファイル専用処理
-  ・制御文字変換（0xB4 ⇔ 0x74）
+note right of MixedFileConversionConfig
+  BatchParameterに依存しない
+  汎用的な変換設定クラス
 end note
 
-note right of FileType
-  サポートするファイルタイプ
-  ・FILE_A, FILE_B: 1バイト文字のみ
-  ・FILE_C, FILE_D: 混合文字
-  ・FILE_E, FILE_F: 可変長
+note right of KanjiFieldDefinition
+  漢字項目の位置定義。
+  UTF-8は文字位置、
+  JIS/EBCDICはバイト位置として解釈
 end note
 
 @enduml

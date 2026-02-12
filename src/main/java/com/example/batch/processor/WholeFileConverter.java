@@ -1,7 +1,7 @@
 package com.example.batch.processor;
 
 import com.example.batch.param.BatchParameter;
-import com.example.batch.util.CodeConverter;
+import com.example.batch.util.FileConversionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,8 @@ import java.nio.file.Paths;
  * 全体変換処理クラス（FILE_A、FILE_B用）。
  * 
  * <p>
- * 1バイト文字のみで構成されるファイルを全体一括変換する。
+ * 1バイト文字のみのファイルを一括変換する。
+ * 実際の変換ロジックはFileConversionUtilに委譲する。
  * </p>
  */
 public class WholeFileConverter {
@@ -47,8 +48,12 @@ public class WholeFileConverter {
         byte[] inputBytes = readInputFile();
         logger.info("入力ファイル読み込み完了: {} bytes", inputBytes.length);
         
-        // 文字コード変換実行
-        byte[] outputBytes = convertWholeFile(inputBytes);
+        // 文字コード変換実行（FileConversionUtilに委譲）
+        byte[] outputBytes = FileConversionUtil.convertWholeFile(
+            inputBytes,
+            param.getSourceCharsetSingle(),
+            param.getTargetCharsetSingle()
+        );
         logger.info("文字コード変換完了: {} bytes -> {} bytes", 
             inputBytes.length, outputBytes.length);
         
@@ -67,20 +72,6 @@ public class WholeFileConverter {
      */
     private byte[] readInputFile() throws IOException {
         return Files.readAllBytes(Paths.get(param.getInputFilePath()));
-    }
-    
-    /**
-     * ファイル全体を変換する。
-     * 
-     * @param inputBytes 入力バイト配列
-     * @return 変換後バイト配列
-     */
-    private byte[] convertWholeFile(byte[] inputBytes) {
-        return CodeConverter.convertCharset(
-            inputBytes,
-            param.getSourceCharsetSingle(),
-            param.getTargetCharsetSingle()
-        );
     }
     
     /**

@@ -106,9 +106,10 @@ ParameterFile.properties : 処理指示パラメータファイルを指定。�
 Java の Charset.forName() が受け付ける名称を指定する。
 
 |source.charset.double
-|○
+|FILE_C/D時○
 |変換元2バイト文字コード +
-Java の Charset.forName() が受け付ける名称を指定する。
+Java の Charset.forName() が受け付ける名称を指定する。 +
+FILE_C、FILE_D の場合は必須。それ以外は任意（指定しても無視）。
 
 |target.charset.single
 |○
@@ -116,9 +117,10 @@ Java の Charset.forName() が受け付ける名称を指定する。
 Java の Charset.forName() が受け付ける名称を指定する。
 
 |target.charset.double
-|○
+|FILE_C/D時○
 |変換先2バイト文字コード +
-Java の Charset.forName() が受け付ける名称を指定する。
+Java の Charset.forName() が受け付ける名称を指定する。 +
+FILE_C、FILE_D の場合は必須。それ以外は任意（指定しても無視）。
 
 |file.id
 |○
@@ -208,20 +210,28 @@ file.id=FILE_C
 .. input.file.path
 .. output.file.path
 .. source.charset.single
-.. source.charset.double
 .. target.charset.single
-.. target.charset.double
 .. file.id
 
 . file.id の妥当性チェックを行う。
 .. file.id が FILE_A ～ FILE_F のいずれかであることを確認する。
 .. 不正な値の場合、IllegalArgumentException をスローする。
 
+. 2バイト文字コードの必須チェックを行う（file.id の値に依存）。
+.. FILE_C または FILE_D の場合
+... source.charset.double が null または空文字の場合、IllegalArgumentException をスローする。
+... target.charset.double が null または空文字の場合、IllegalArgumentException をスローする。
+.. FILE_A、FILE_B、FILE_E、FILE_F の場合
+... source.charset.double、target.charset.double は任意（未設定でも可）。
+
 . 文字コードの妥当性チェックを行う。
-.. source.charset.single, source.charset.double, target.charset.single, target.charset.double それぞれについて、Java の Charset.forName() で変換可能かチェックする。
-.. 変換できない場合、UnsupportedCharsetException をスローする。
+.. source.charset.single, target.charset.single は常にチェックする。
+.. source.charset.double, target.charset.double は値が設定されている場合のみチェックする。
+.. Java の Charset.forName() で変換できない場合、UnsupportedCharsetException をスローする。
 
 . サポートする文字コードの組み合わせチェックを行う。
+.. source.charset.single, target.charset.single は常にチェックする。
+.. source.charset.double, target.charset.double は値が設定されている場合のみチェックする。
 .. 以下の文字コードのみサポート対象であることを確認する。
 ... UTF-8
 ... ISO-2022-JP
@@ -229,9 +239,126 @@ file.id=FILE_C
 ... CP930 (IBM930)
 .. 上記以外の文字コードが指定された場合、IllegalArgumentException をスローする。
 
-. パラメータ内容をログ出力する（ファイルID、入出力パス、変換元/先文字コード）。
+. 漢字変換実施フラグを設定する。
+.. FILE_C または FILE_D の場合
+... source.charset.double と target.charset.double が異なる（大文字小文字を無視）場合、convertDoubleByteCharset を true に設定する。
+... 同一の場合は false に設定する（漢字変換をスキップ）。
+.. FILE_A、FILE_B、FILE_E、FILE_F の場合
+... convertDoubleByteCharset を false に設定する。
+
+. パラメータ内容をログ出力する（ファイルID、入出力パス、変換元/先文字コード、漢字変換実施）。
 
 . 読み込んだパラメータを返却する。
+
+<<<
+
+<
+=== ファイル変換ユーティリティ（FileConversionUtil）
+
+==== 概要
+
+ファイルタイプ別の変換ロジックを提供する静的ユーティリティクラス。
+
+入出力処理は含まず、バイト配列の変換のみを行う。
+
+各Converterクラス（WholeFileConverter、MixedFileConverter、VariableLengthConverter）から呼び出される。
+
+==== 公開メソッド
+
+===== convertWholeFile
+
+全体変換（FILE_A、FILE_B用）。
+
+====== パラメータ
+
+* inputBytes: 入力バイト配列
+* sourceCharset: 変換元文字コード
+* targetCharset: 変換先文字コード
+
+====== 返却値
+
+* 変換後バイト配列
+
+====== 処理内容
+
+. CodeConverter.convertCharset() で全体を一括変換する。
+
+. ヘッダーレコードのコード区分を変換する。
+.. 210バイトごとにレコードを区切る。
+.. 1バイト目が'1'（ヘッダーレコード）の場合、6バイト目のコード区分を更新する。
+... 変換先がEBCDIC（CP930等）の場合：'1'に設定
+... 変換先がJIS/UTF-8の場合：'0'に設定
+
+. 変換後バイト配列を返却する。
+
+===== convertMixedFile
+
+混合ファイル変換（FILE_C、FILE_D用）。
+
+====== パラメータ
+
+* inputBytes: 入力バイト配列
+* config: MixedFileConversionConfig（変換設定）
+.. sourceCharsetSingle: 変換元1バイト文字コード
+.. sourceCharsetDouble: 変換元2バイト文字コード
+.. targetCharsetSingle: 変換先1バイト文字コード
+.. targetCharsetDouble: 変換先2バイト文字コード
+.. convertDoubleByteCharset: 漢字変換実施フラグ
+
+====== 返却値
+
+* 変換後バイト配列
+
+====== 処理内容
+
+. 変換元文字コードがUTF-8かどうかを判定する。
+
+. UTF-8の場合
+.. convertMixedFileCharacterBased() を呼び出す（文字数ベース処理）。
+
+. UTF-8以外の場合
+.. convertMixedFileByteBased() を呼び出す（バイト数ベース処理）。
+
+. 変換後バイト配列を返却する。
+
+===== convertVariableLengthFile
+
+可変長ファイル変換（FILE_E、FILE_F用）。
+
+====== パラメータ
+
+* inputBytes: 入力バイト配列
+* sourceCharsetSingle: 変換元1バイト文字コード
+* targetCharsetSingle: 変換先1バイト文字コード
+
+====== 返却値
+
+* 変換後バイト配列
+
+====== 処理内容
+
+. 変換先文字コードがEBCDICかどうかを判定する。
+
+. BDWを読み込んでブロック単位で処理する。
+.. ブロック長を取得する。
+.. ブロックデータを読み込む。
+.. processBlock() でブロックを変換する。
+.. 新しいBDWを計算して変換後ブロックを構築する。
+
+. 全ブロックの変換後バイト配列を返却する。
+
+==== 内部メソッド
+
+NOTE: 内部メソッドの詳細は実装を参照。主要なメソッドは以下の通り。
+
+* convertMixedFileCharacterBased(): UTF-8文字数ベース変換
+* convertMixedFileByteBased(): バイト数ベース変換
+* convertSimpleRecord(): シンプルレコード変換（ヘッダー/トレーラー/エンド）
+* convertDataRecordCharacterBased(): データレコード変換（文字数ベース）
+* convertDataRecord(): データレコード変換（バイト数ベース）
+* processBlock(): 可変長ブロック処理
+* processRecord(): 可変長レコード処理
+* convertControlCharacter(): 制御文字変換
 
 <<<
 
@@ -243,12 +370,45 @@ file.id=FILE_C
 
 FILE_A と FILE_B は同一の処理ロジックを使用する。
 
-レコード単位の処理は行わず、ファイル全体を読み込んで変換する。
+固定長レコード（210バイト）で構成され、ヘッダー/データ/トレーラー/エンドレコードを含む。
+
+変換後、ヘッダーレコードのコード区分を変換先文字コードに応じて更新する。
+
+==== ファイル構造
+
+.レコード構造（210バイト固定長）
+[cols="1,1,3", options="header"]
+|===
+|位置 |サイズ |内容
+
+|1バイト目
+|1 byte
+|レコード区分 +
+'1' = ヘッダーレコード +
+'2' = データレコード +
+'8' = トレーラーレコード +
+'9' = エンドレコード
+
+|2バイト目
+|1 byte
+|データ種別（データレコードの場合） +
+'1' または '2'
+
+|6バイト目
+|1 byte
+|コード区分（ヘッダーレコードの場合） +
+'0' = JIS/UTF-8 +
+'1' = EBCDIC
+
+|3-210バイト目
+|208 bytes
+|レコードデータ
+|===
 
 ==== パラメータ
 
-* inputPath : 入力ファイルパス（文字列）
-* outputPath : 出力ファイルパス（文字列）
+* param : BatchParameter（処理指示パラメータ）
+
 
 ==== 返却値
 
@@ -256,20 +416,23 @@ FILE_A と FILE_B は同一の処理ロジックを使用する。
 
 ==== 処理内容
 
-. 処理開始ログを出力する（ファイルタイプ、入出力パス、変換元/先文字コード）。
+. 処理開始ログを出力する。
 
 . 入力ファイル全体を読み込む。
+.. java.nio.file.Files.readAllBytes() を使用してファイル全体をバイト配列として読み込む。
 
-. 業務共通クラス CodeConverter の convertCharset() を呼び出し、ファイル全体を変換する。
-.. 引数：ファイル全体のバイト配列, sourceCharsetSingle（変換元1バイト文字コード）, targetCharsetSingle（変換先1バイト文字コード）
+. FileConversionUtil.convertWholeFile() を呼び出してファイル変換を実行する。
+.. 引数：入力バイト配列, sourceCharsetSingle, targetCharsetSingle
 .. 返却値：変換後のバイト配列
+.. 詳細は <<_ファイル変換ユーティリティfileconversionutil,ファイル変換ユーティリティ>> を参照。
 
-. 変換後のバイト配列をファイルに出力する。
+. 変換後のバイト配列を出力ファイルに書き込む。
+.. java.nio.file.Files.write() を使用してファイルに書き込む。
 
-
-. 処理完了ログを出力する（入力バイト数、出力バイト数）。
+. 処理完了ログを出力する。
 
 <<<
+
 
 === 混合ファイル変換処理（FILE_C / FILE_D用）
 
@@ -303,16 +466,52 @@ FILE_C と FILE_D は同一の処理ロジックと漢字項目定義を使用�
 |データ種別（データレコードの場合） +
 '1' または '2'
 
+|6バイト目
+|1 byte
+|コード区分（ヘッダーレコードの場合） +
+'0' = JIS/UTF-8 +
+'1' = EBCDIC
+
 |3バイト目以降
 |378 bytes
 |レコードデータ
+|===
+
+NOTE: UTF-8で処理する場合、全角文字はバイト数（2バイト）と文字数（1文字）が異なるため、レコードの文字数はバイト数と一致しない。レコード種別ごとのUTF-8文字数は以下の通り。
+
+.UTF-8処理時のレコード文字数
+[cols="2,1,2", options="header"]
+|===
+|レコード種別 |文字数 |備考
+
+|ヘッダーレコード（'1'）
+|380文字
+|
+
+|データレコード（'2'）種別='1'
+|350文字
+|
+
+|データレコード（'2'）種別='2'
+|300文字
+|
+
+|トレーラーレコード（'8'）
+|380文字
+|
+
+|エンドレコード（'9'）
+|380文字
+|
 |===
 
 ==== 漢字項目定義
 
 データレコードのデータ種別に応じて、以下の位置の漢字項目を変換する。
 
-NOTE: 以下の位置は仮の定義である。実際の業務要件に合わせて調整すること。UTF-8の場合は文字位置、それ以外はバイト位置として解釈される。
+NOTE: 以下の位置は仮の定義である。実際の業務要件に合わせて調整すること。
+
+===== 文字数ベース定義（UTF-8用）
 
 .データ種別='1'の場合
 [cols="1,1,2", options="header"]
@@ -320,12 +519,12 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 |項目 |開始位置 |終了位置
 
 |漢字項目1
-|50
-|99
+|50文字目
+|99文字目
 
 |漢字項目2
-|150
-|199
+|150文字目
+|199文字目
 |===
 
 .データ種別='2'の場合
@@ -334,18 +533,48 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 |項目 |開始位置 |終了位置
 
 |漢字項目1
-|80
-|129
+|80文字目
+|129文字目
 
 |漢字項目2
-|200
-|249
+|200文字目
+|249文字目
+|===
+
+===== バイト数ベース定義（JIS/EBCDIC用）
+
+.データ種別='1'の場合
+[cols="1,1,2", options="header"]
+|===
+|項目 |開始位置 |終了位置
+
+|漢字項目1
+|50バイト目
+|99バイト目
+
+|漢字項目2
+|150バイト目
+|199バイト目
+|===
+
+.データ種別='2'の場合
+[cols="1,1,2", options="header"]
+|===
+|項目 |開始位置 |終了位置
+
+|漢字項目1
+|80バイト目
+|129バイト目
+
+|漢字項目2
+|200バイト目
+|249バイト目
 |===
 
 ==== パラメータ
 
-* inputPath : 入力ファイルパス（文字列）
-* outputPath : 出力ファイルパス（文字列）
+* param : BatchParameter（処理指示パラメータ）
+
 
 ==== 返却値
 
@@ -355,24 +584,49 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 
 . 処理開始ログを出力する。
 
-. 変換元文字コードがUTF-8かどうかを判定する。
+. 入力ファイル全体を読み込む。
+.. java.nio.file.Files.readAllBytes() を使用してファイル全体をバイト配列として読み込む。
 
-. UTF-8の場合は文字数ベース処理、それ以外はバイト数ベース処理を実行する。
+. MixedFileConversionConfig オブジェクトを作成する。
+.. BatchParameter から必要なパラメータを取得して設定する。
+... sourceCharsetSingle
+... sourceCharsetDouble
+... targetCharsetSingle
+... targetCharsetDouble
+... convertDoubleByteCharset
 
-===== 文字数ベース処理（UTF-8用）
+. FileConversionUtil.convertMixedFile() を呼び出してファイル変換を実行する。
+.. 引数：入力バイト配列, MixedFileConversionConfig
+.. 返却値：変換後のバイト配列
+.. 詳細は <<_ファイル変換ユーティリティfileconversionutil,ファイル変換ユーティリティ>> を参照。
 
-. 入力ファイルをBufferedReaderで開く（UTF-8エンコーディング）。
+. 変換後のバイト配列を出力ファイルに書き込む。
+.. java.nio.file.Files.write() を使用してファイルに書き込む。
+
+. 処理完了ログを出力する。
+
+NOTE: 文字数ベース処理（UTF-8）とバイト数ベース処理（JIS/EBCDIC）の詳細は FileConversionUtil を参照。
+
+===== 文字数ベース処理（UTF-8用）の詳細
+
+NOTE: 以下は FileConversionUtil 内部で実行される処理の詳細。実際の処理は FileConversionUtil.convertMixedFileCharacterBased() で行われる。
+
+. 入力ファイルをInputStreamReader（UTF-8エンコーディング）で開く。
 
 . 出力ファイルを開く。
 
 . 以下の処理をファイル終端まで繰り返す。
-.. 1行（380文字）を読み込む。
-.. レコード区分（1文字目）を判定する。
-.. レコード区分に応じて変換処理を実行する。
-... ヘッダーレコード（'1'）：シンプルレコード変換処理を実行
-... データレコード（'2'）：データレコード変換処理（文字数ベース）を実行
-... トレーラーレコード（'8'）：シンプルレコード変換処理を実行
-... エンドレコード（'9'）：シンプルレコード変換処理を実行
+.. レコード区分（1文字目）を先読みする。
+.. レコード区分に応じて読み込む文字数を決定し、残りを読み込む。
+... データレコード（'2'）の場合
+.... データ種別（2文字目）をさらに先読みする。
+.... データ種別に応じた残り文字数を決定する。
+..... データ種別='1'：残り348文字（計350文字）を読み込む
+..... データ種別='2'：残り298文字（計300文字）を読み込む
+.... データレコード変換処理（文字数ベース）を実行する。
+... ヘッダー/トレーラー/エンドレコードの場合
+.... 残り379文字（計380文字）を読み込む。
+.... シンプルレコード変換処理を実行する。
 ... 上記以外：警告ログを出力し、レコードをそのまま出力
 .. 変換後レコードを出力ファイルに書き込む。
 
@@ -380,7 +634,9 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 
 . 処理完了ログを出力する（総レコード数、ヘッダー数、データ数、トレーラー数、エンド数）。
 
-===== バイト数ベース処理（UTF-8以外用）
+===== バイト数ベース処理（UTF-8以外用）の詳細
+
+NOTE: 以下は FileConversionUtil 内部で実行される処理の詳細。実際の処理は FileConversionUtil.convertMixedFileByteBased() で行われる。
 
 . 入力ファイルをBufferedInputStreamで開く。
 
@@ -413,13 +669,17 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 .. 引数：レコード全体のバイト配列, sourceCharsetSingle, targetCharsetSingle
 .. 返却値：変換後のバイト配列
 
+. ヘッダーレコード（1バイト目が'1'）の場合、コード区分（6バイト目）を更新する。
+.. 変換先文字コードがEBCDIC（Cp930含む）の場合：'1'を設定
+.. 変換先文字コードがJIS/UTF-8の場合：'0'を設定
+
 . 変換後のバイト配列を返却する。
 
 ==== データレコード変換処理（文字数ベース）
 
 . データ種別（2文字目）を取得する。
 
-. データ種別に応じた漢字項目定義を取得する。
+. データ種別に応じた漢字項目定義（KANJI_FIELD_DEFS_CHARACTER）を取得する。
 .. 定義が存在しない場合、レコード全体を1バイト文字として変換して返却する。
 
 . 変換後レコードを構築する作業用バッファを準備する。
@@ -429,8 +689,11 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 .. CodeConverter.convertCharset() で1バイト文字を変換する。
 .. 変換後データを作業用バッファに追加する。
 .. 漢字項目を文字列として抽出する。
-.. CodeConverter.convertKanjiCharset() で漢字を変換する。
-.. 変換後データを作業用バッファに追加する。
+.. convertDoubleByteCharset が true の場合
+... CodeConverter.convertKanjiCharset() で漢字を変換する。
+... 変換後データを作業用バッファに追加する。
+.. convertDoubleByteCharset が false の場合
+... 漢字項目をそのまま（変換せず）作業用バッファに追加する。
 
 . 最後の漢字項目以降の1バイト文字部分を変換する。
 
@@ -440,7 +703,7 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 
 . データ種別（2バイト目）を取得する。
 
-. データ種別に応じた漢字項目定義を取得する。
+. データ種別に応じた漢字項目定義（KANJI_FIELD_DEFS_BYTE）を取得する。
 .. 定義が存在しない場合、レコード全体を1バイト文字として変換して返却する。
 
 . 変換後レコードを構築する作業用バッファを準備する。
@@ -450,8 +713,11 @@ NOTE: 以下の位置は仮の定義である。実際の業務要件に合わ�
 .. CodeConverter.convertCharset() で1バイト文字を変換する。
 .. 変換後データを作業用バッファに追加する。
 .. 漢字項目をバイト配列として抽出する。
-.. CodeConverter.convertKanjiCharset() で漢字を変換する。
-.. 変換後データを作業用バッファに追加する。
+.. convertDoubleByteCharset が true の場合
+... CodeConverter.convertKanjiCharset() で漢字を変換する。
+... 変換後データを作業用バッファに追加する。
+.. convertDoubleByteCharset が false の場合
+... 漢字項目をそのまま（変換せず）作業用バッファに追加する。
 
 . 最後の漢字項目以降の1バイト文字部分を変換する。
 
@@ -549,8 +815,8 @@ FILE_E と FILE_F は電文以外同じ構成であり、同一の処理ロジ�
 
 ==== パラメータ
 
-* inputPath : 入力ファイルパス（文字列）
-* outputPath : 出力ファイルパス（文字列）
+* param : BatchParameter（処理指示パラメータ）
+
 
 ==== 返却値
 
@@ -559,6 +825,25 @@ FILE_E と FILE_F は電文以外同じ構成であり、同一の処理ロジ�
 ==== 処理内容
 
 . 処理開始ログを出力する。
+
+. 入力ファイル全体を読み込む。
+.. java.nio.file.Files.readAllBytes() を使用してファイル全体をバイト配列として読み込む。
+
+. FileConversionUtil.convertVariableLengthFile() を呼び出してファイル変換を実行する。
+.. 引数：入力バイト配列, sourceCharsetSingle, targetCharsetSingle
+.. 返却値：変換後のバイト配列
+.. 詳細は <<_ファイル変換ユーティリティfileconversionutil,ファイル変換ユーティリティ>> を参照。
+
+. 変換後のバイト配列を出力ファイルに書き込む。
+.. java.nio.file.Files.write() を使用してファイルに書き込む。
+
+. 処理完了ログを出力する。
+
+NOTE: ブロック処理、レコード処理、BDW/RDW再計算の詳細は FileConversionUtil を参照。
+
+===== ブロック処理の詳細
+
+NOTE: 以下は FileConversionUtil 内部で実行される処理の詳細。
 
 . 変換方向を判定する（targetCharsetSingleがCP930を含む場合、EBCDIC方向）。
 

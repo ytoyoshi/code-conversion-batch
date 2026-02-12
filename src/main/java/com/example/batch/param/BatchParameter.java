@@ -41,6 +41,7 @@ public class BatchParameter {
     private String targetCharsetSingle;
     private String targetCharsetDouble;
     private FileType fileId;
+    private boolean convertDoubleByteCharset;
     
     /**
      * パラメータファイルから処理指示パラメータを読み込む。
@@ -65,33 +66,65 @@ public class BatchParameter {
         
         BatchParameter param = new BatchParameter();
         
-        // 必須パラメータの取得とバリデーション
+        // 必須パラメータの取得
         param.inputFilePath = getRequiredProperty(props, "input.file.path");
         param.outputFilePath = getRequiredProperty(props, "output.file.path");
         param.sourceCharsetSingle = getRequiredProperty(props, "source.charset.single");
-        param.sourceCharsetDouble = getRequiredProperty(props, "source.charset.double");
         param.targetCharsetSingle = getRequiredProperty(props, "target.charset.single");
-        param.targetCharsetDouble = getRequiredProperty(props, "target.charset.double");
         
+        // file.id の取得（2バイト文字コードの必須判定に使用するため先に取得）
         String fileIdStr = getRequiredProperty(props, "file.id");
         param.fileId = FileType.fromString(fileIdStr);
+        
+        // 2バイト文字コード: FILE_C、FILE_D の場合のみ必須
+        if (param.fileId == FileType.FILE_C || param.fileId == FileType.FILE_D) {
+            param.sourceCharsetDouble = getRequiredProperty(props, "source.charset.double");
+            param.targetCharsetDouble = getRequiredProperty(props, "target.charset.double");
+        } else {
+            param.sourceCharsetDouble = props.getProperty("source.charset.double", "").trim();
+            param.targetCharsetDouble = props.getProperty("target.charset.double", "").trim();
+        }
         
         // 入力ファイルの存在チェック
         if (!Files.exists(Paths.get(param.inputFilePath))) {
             throw new IllegalArgumentException("入力ファイルが存在しません: " + param.inputFilePath);
         }
         
-        // 文字コードの妥当性チェック
+        // 文字コードの妥当性チェック（1バイト文字コードは常にチェック）
         param.validateCharset(param.sourceCharsetSingle, "source.charset.single");
-        param.validateCharset(param.sourceCharsetDouble, "source.charset.double");
         param.validateCharset(param.targetCharsetSingle, "target.charset.single");
-        param.validateCharset(param.targetCharsetDouble, "target.charset.double");
         
-        // サポートする文字コードの組み合わせチェック
+        // 文字コードの妥当性チェック（2バイト文字コードは値がある場合のみチェック）
+        if (!param.sourceCharsetDouble.isEmpty()) {
+            param.validateCharset(param.sourceCharsetDouble, "source.charset.double");
+        }
+        if (!param.targetCharsetDouble.isEmpty()) {
+            param.validateCharset(param.targetCharsetDouble, "target.charset.double");
+        }
+        
+        // サポートする文字コードのチェック（1バイト文字コードは常にチェック）
         param.validateSupportedCharset(param.sourceCharsetSingle, "source.charset.single");
-        param.validateSupportedCharset(param.sourceCharsetDouble, "source.charset.double");
         param.validateSupportedCharset(param.targetCharsetSingle, "target.charset.single");
-        param.validateSupportedCharset(param.targetCharsetDouble, "target.charset.double");
+        
+        // サポートする文字コードのチェック（2バイト文字コードは値がある場合のみチェック）
+        if (!param.sourceCharsetDouble.isEmpty()) {
+            param.validateSupportedCharset(param.sourceCharsetDouble, "source.charset.double");
+        }
+        if (!param.targetCharsetDouble.isEmpty()) {
+            param.validateSupportedCharset(param.targetCharsetDouble, "target.charset.double");
+        }
+        
+        // 2バイト文字コードが変換元と変換先で異なる場合のみ漢字変換を実施するフラグを設定
+        // FILE_C、FILE_D 以外は参照されないため常に false
+        if (param.fileId == FileType.FILE_C || param.fileId == FileType.FILE_D) {
+            param.convertDoubleByteCharset =
+                !param.sourceCharsetDouble.equalsIgnoreCase(param.targetCharsetDouble);
+            if (!param.convertDoubleByteCharset) {
+                logger.info("2バイト文字コードが同一のため漢字変換をスキップします: {}", param.sourceCharsetDouble);
+            }
+        } else {
+            param.convertDoubleByteCharset = false;
+        }
         
         // パラメータ内容をログ出力
         param.logParameters();
@@ -162,9 +195,10 @@ public class BatchParameter {
         logger.info("入力ファイルパス: {}", inputFilePath);
         logger.info("出力ファイルパス: {}", outputFilePath);
         logger.info("変換元1バイト文字コード: {}", sourceCharsetSingle);
-        logger.info("変換元2バイト文字コード: {}", sourceCharsetDouble);
+        logger.info("変換元2バイト文字コード: {}", sourceCharsetDouble.isEmpty() ? "(未設定)" : sourceCharsetDouble);
         logger.info("変換先1バイト文字コード: {}", targetCharsetSingle);
-        logger.info("変換先2バイト文字コード: {}", targetCharsetDouble);
+        logger.info("変換先2バイト文字コード: {}", targetCharsetDouble.isEmpty() ? "(未設定)" : targetCharsetDouble);
+        logger.info("漢字変換実施: {}", convertDoubleByteCharset);
         logger.info("====================================");
     }
     
@@ -196,5 +230,9 @@ public class BatchParameter {
     
     public FileType getFileId() {
         return fileId;
+    }
+    
+    public boolean isConvertDoubleByteCharset() {
+        return convertDoubleByteCharset;
     }
 }

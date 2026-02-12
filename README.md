@@ -115,10 +115,10 @@ file.id=FILE_E
 
 | ファイルID | レコード形式 | レコード長 | 特徴 |
 |-----------|------------|-----------|------|
-| FILE_A | 固定長 | 210 bytes | 1バイト文字のみ |
-| FILE_B | 固定長 | 210 bytes | 1バイト文字のみ |
-| FILE_C | 固定長 | 380 bytes | 1バイト・2バイト混合<br>UTF-8の場合は文字数ベース処理 |
-| FILE_D | 固定長 | 380 bytes | 1バイト・2バイト混合<br>UTF-8の場合は文字数ベース処理 |
+| FILE_A | 固定長 | 210 bytes | 1バイト文字のみ（ヘッダーに6バイト目コード区分あり） |
+| FILE_B | 固定長 | 210 bytes | 1バイト文字のみ（ヘッダーに6バイト目コード区分あり） |
+| FILE_C | 固定長 | 380 bytes | 1バイト・2バイト混合<br>UTF-8の場合は文字数ベース処理<br>ヘッダーに6バイト目コード区分あり |
+| FILE_D | 固定長 | 380 bytes | 1バイト・2バイト混合<br>UTF-8の場合は文字数ベース処理<br>ヘッダーに6バイト目コード区分あり |
 | FILE_E | 可変長 | - | BDW/RDW構造 |
 | FILE_F | 可変長 | - | BDW/RDW構造 |
 
@@ -153,6 +153,24 @@ file.id=FILE_E
 ### EncodingBatchMain
 メイン処理クラス。パラメータ読み込み、ファイルタイプ判定、適切な変換処理の呼び出しを行います。
 
+### BatchParameter
+処理指示パラメータを管理するクラス。パラメータファイルの読み込み、バリデーション、漢字変換フラグの設定を行います。
+
+### FileConversionUtil
+**ファイル変換ロジックを集約したUtilityクラス（新規）。**
+
+全てのファイルタイプの変換ロジックを提供します。各Converterクラスから呼び出されます。
+
+**公開メソッド:**
+- `convertWholeFile()`: 全体変換（FILE_A/B用）
+- `convertMixedFile()`: 混合ファイル変換（FILE_C/D用）
+- `convertVariableLengthFile()`: 可変長ファイル変換（FILE_E/F用）
+
+**特徴:**
+- 入出力処理を含まず、バイト配列の変換のみを担当
+- ヘッダーレコードのコード区分自動更新機能を内包
+- BDW/RDW再計算、制御文字変換など全ての変換ロジックを統合
+
 ### CodeConverter
 文字コード変換を行うUtilityクラス。
 
@@ -160,21 +178,39 @@ file.id=FILE_E
 - `convertKanjiCharset()`: 漢字の文字コード変換（ISO-2022-JP ESCシーケンス処理含む）
 
 ### WholeFileConverter
-FILE_A、FILE_B用の全体変換処理。
+FILE_A、FILE_B用の変換処理クラス。
+
+**役割:**
+- ファイル読み込み
+- FileConversionUtilへの変換委譲
+- ファイル書き込み
 
 ### MixedFileConverter
-FILE_C、FILE_D用の混合ファイル変換処理。データレコードの特定フィールドのみ漢字変換を実施。
+FILE_C、FILE_D用の変換処理クラス。
 
-**重要な特徴:**
-- UTF-8の場合：BufferedReaderを使用した文字数ベース処理
-- UTF-8以外：バイト数ベース処理
-- トレーラーレコード（'8'）、エンドレコード（'9'）にも対応
+**役割:**
+- ファイル読み込み
+- MixedFileConversionConfig作成
+- FileConversionUtilへの変換委譲
+- ファイル書き込み
 
 ### VariableLengthConverter
-FILE_E、FILE_F用の可変長ファイル変換処理。BDW、RDW、電文長の再計算を行います。
+FILE_E、FILE_F用の変換処理クラス。
 
-**内部機能:**
-- 制御文字変換（終端符号）: 0xB4 ⇔ 0x74
+**役割:**
+- ファイル読み込み
+- FileConversionUtilへの変換委譲
+- ファイル書き込み
+
+### MixedFileConversionConfig
+混合ファイル変換の設定を保持するクラス（新規）。
+
+BatchParameterに依存しない汎用的な設計で、変換に必要なパラメータをカプセル化します。
+
+### KanjiFieldDefinition
+漢字項目の位置定義を保持するクラス（新規）。
+
+UTF-8の場合は文字位置、JIS/EBCDICの場合はバイト位置として解釈されます。
 
 ## ドキュメント
 
