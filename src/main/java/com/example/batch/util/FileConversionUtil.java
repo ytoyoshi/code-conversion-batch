@@ -192,11 +192,20 @@ public class FileConversionUtil {
      * @param targetCharset 変換先文字コード
      */
     private static void updateHeaderCodeType(byte[] data, int recordLength, String targetCharset) {
-        byte targetCodeType = isTargetEbcdic(targetCharset) ? '1' : '0';
-        
+        byte targetCodeType = isTargetEbcdic(targetCharset) ? (byte)'1' : (byte)'0';
+
         for (int offset = 0; offset < data.length; offset += recordLength) {
             if (offset + recordLength > data.length) {
                 break;
+            }
+
+            // ヘッダーレコード（1バイト目が'1'）の場合、コード区分を更新
+            if (data[offset] == (byte)'1') {
+                data[offset + CODE_TYPE_POSITION] = targetCodeType;
+            }
+        }
+    }
+
     // ========== 内部メソッド（混合ファイル変換用） ==========
     
     private static byte[] convertMixedFileCharacterBased(
@@ -564,12 +573,12 @@ public class FileConversionUtil {
         
         // 各フィールドを抽出
         byte[] fixedPart = extractField(recordData, RDW_SIZE, FIXED_PART_SIZE);
-        byte[] messageLenBytes = extractField(recordData, MESSAGE_LEN_START - RDW_SIZE, MESSAGE_LEN_SIZE);
-        
+        byte[] messageLenBytes = extractField(recordData, MESSAGE_LEN_START, MESSAGE_LEN_SIZE);
+
         int messageLength = bytesToInt(messageLenBytes);
-        byte[] message = extractField(recordData, MESSAGE_START - RDW_SIZE, messageLength);
-        byte[] terminator = extractField(recordData, 
-            MESSAGE_START - RDW_SIZE + messageLength, TERMINATOR_SIZE);
+        byte[] message = extractField(recordData, MESSAGE_START, messageLength);
+        byte[] terminator = extractField(recordData,
+            MESSAGE_START + messageLength, TERMINATOR_SIZE);
         
         // 固定部を変換（英数のみ）
         byte[] convertedFixed = CodeConverter.convertCharset(
@@ -642,5 +651,63 @@ public class FileConversionUtil {
         }
         
         return result;
+    }
+
+    // ========== ユーティリティメソッド ==========
+
+    /**
+     * UTF-8文字コードかどうかを判定する。
+     *
+     * @param charset 文字コード名
+     * @return UTF-8の場合true
+     */
+    private static boolean isUtf8(String charset) {
+        if (charset == null) {
+            return false;
+        }
+        String normalized = charset.toUpperCase().replaceAll("-", "");
+        return normalized.equals("UTF8");
+    }
+
+    /**
+     * EBCDIC文字コードかどうかを判定する。
+     *
+     * @param charset 文字コード名
+     * @return EBCDICの場合true
+     */
+    private static boolean isTargetEbcdic(String charset) {
+        if (charset == null) {
+            return false;
+        }
+        String normalized = charset.toUpperCase();
+        return normalized.contains("CP930") || normalized.contains("IBM930");
+    }
+
+    /**
+     * バイト配列をintに変換する（ビッグエンディアン）。
+     *
+     * @param bytes バイト配列（2バイトまたは4バイト）
+     * @return int値
+     */
+    private static int bytesToInt(byte[] bytes) {
+        if (bytes == null || bytes.length == 0) {
+            return 0;
+        }
+
+        int result = 0;
+        for (int i = 0; i < bytes.length && i < 4; i++) {
+            result = (result << 8) | (bytes[i] & 0xFF);
+        }
+        return result;
+    }
+
+    /**
+     * intをバイト配列に変換する（ビッグエンディアン、4バイト）。
+     *
+     * @param value int値
+     * @return 4バイトのバイト配列
+     */
+    private static byte[] intToBytes(int value) {
+        return ByteBuffer.allocate(4).putInt(value).array();
     }
 }

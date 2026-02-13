@@ -1,0 +1,10 @@
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/processor/MixedFileConverter.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/EncodingBatchMain.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/processor/WholeFileConverter.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/constant/FileType.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/param/BatchParameter.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/util/FileConversionUtil.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/model/MixedFileConversionConfig.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/model/KanjiFieldDefinition.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/util/CodeConverter.java
+/Users/yusuke/work/code-conversion-batch/src/main/java/com/example/batch/processor/VariableLengthConverter.java

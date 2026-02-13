@@ -1,0 +1,899 @@
+2026-02-13 00:34:55.761 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-10737959794842417995/parameter.properties
+2026-02-13 00:34:55.764 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.764 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_D
+2026-02-13 00:34:55.764 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-10737959794842417995/input.txt
+2026-02-13 00:34:55.764 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-10737959794842417995/output.txt
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.765 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.765 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 00:34:55.765 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_D
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-10737959794842417995/input.txt
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-10737959794842417995/output.txt
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:34:55.766 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1140 bytes
+2026-02-13 00:34:55.767 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 00:34:55.767 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:34:55.767 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (80 bytes)
+2026-02-13 00:34:55.767 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 80 bytes -> 80 bytes
+2026-02-13 00:34:55.767 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 00:34:55.768 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 00:34:55.769 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 00:34:55.769 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (70 bytes)
+2026-02-13 00:34:55.769 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 70 bytes -> 70 bytes
+2026-02-13 00:34:55.769 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 00:34:55.769 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 00:34:55.770 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 00:34:55.770 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (130 bytes)
+2026-02-13 00:34:55.770 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 130 bytes -> 130 bytes
+2026-02-13 00:34:55.770 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 00:34:55.770 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:34:55.770 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1140 bytes -> 1190 bytes
+2026-02-13 00:34:55.770 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1190 bytes
+2026-02-13 00:34:55.770 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 00:34:55.772 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-5390874164937727415/parameter.properties
+2026-02-13 00:34:55.772 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.772 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-5390874164937727415/input.txt
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-5390874164937727415/output.txt
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 00:34:55.773 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 00:34:55.774 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.774 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-5390874164937727415/input.txt
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-5390874164937727415/output.txt
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 00:34:55.774 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 00:34:55.774 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 00:34:55.775 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:34:55.776 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 00:34:55.777 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 00:34:55.777 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (150 bytes)
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 00:34:55.778 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 00:34:55.779 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:34:55.779 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1208 bytes
+2026-02-13 00:34:55.779 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1208 bytes
+2026-02-13 00:34:55.779 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2401298122290075604/parameter.properties
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 2バイト文字コードが同一のため漢字変換をスキップします: UTF-8
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2401298122290075604/input.txt
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2401298122290075604/output.txt
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.781 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.781 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 00:34:55.781 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 00:34:55.781 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2401298122290075604/input.txt
+2026-02-13 00:34:55.781 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2401298122290075604/output.txt
+2026-02-13 00:34:55.782 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:34:55.782 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:34:55.782 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:34:55.782 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:34:55.782 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (150 bytes)
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 00:34:55.782 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:34:55.782 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1310 bytes
+2026-02-13 00:34:55.783 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1310 bytes
+2026-02-13 00:34:55.783 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14477747072649313926/parameter.properties
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_E
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14477747072649313926/input.dat
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14477747072649313926/output.dat
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:34:55.785 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:34:55.786 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.786 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:34:55.786 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:34:55.786 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.786 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_E
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14477747072649313926/input.dat
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14477747072649313926/output.dat
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: UTF-8
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: JIS_X0201
+2026-02-13 00:34:55.786 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 61 bytes
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14976660991603767472/parameter.properties
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_F
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14976660991603767472/input.dat
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14976660991603767472/output.dat
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:34:55.789 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:34:55.790 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:34:55.790 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:34:55.790 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.790 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_F
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14976660991603767472/input.dat
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14976660991603767472/output.dat
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: JIS_X0201
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: UTF-8
+2026-02-13 00:34:55.790 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 56 bytes
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-15157457667287456976/parameter.properties
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_A
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-15157457667287456976/input.txt
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-15157457667287456976/output.txt
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.792 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理開始 ==========
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - ファイルタイプ: FILE_A
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-15157457667287456976/input.txt
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-15157457667287456976/output.txt
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 変換元文字コード: UTF-8
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 変換先文字コード: JIS_X0201
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル読み込み完了: 840 bytes
+2026-02-13 00:34:55.793 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (840 bytes)
+2026-02-13 00:34:55.793 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル書き込み完了: 840 bytes
+2026-02-13 00:34:55.793 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理完了 ==========
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-17418846691283555125/parameter.properties
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_B
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-17418846691283555125/input.txt
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-17418846691283555125/output.txt
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:34:55.794 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理開始 ==========
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - ファイルタイプ: FILE_B
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-17418846691283555125/input.txt
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-17418846691283555125/output.txt
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 変換元文字コード: JIS_X0201
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 変換先文字コード: UTF-8
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル読み込み完了: 840 bytes
+2026-02-13 00:34:55.795 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (840 bytes)
+2026-02-13 00:34:55.795 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル書き込み完了: 840 bytes
+2026-02-13 00:34:55.795 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理完了 ==========
+2026-02-13 00:36:37.843 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-7615057592114275608/parameter.properties
+2026-02-13 00:36:37.850 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:36:37.850 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_E
+2026-02-13 00:36:37.850 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-7615057592114275608/input.dat
+2026-02-13 00:36:37.850 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-7615057592114275608/output.dat
+2026-02-13 00:36:37.850 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:36:37.851 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:36:37.851 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:36:37.851 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:36:37.851 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:36:37.851 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:36:37.851 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:36:37.851 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 00:36:37.851 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_E
+2026-02-13 00:36:37.851 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-7615057592114275608/input.dat
+2026-02-13 00:36:37.852 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-7615057592114275608/output.dat
+2026-02-13 00:36:37.852 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: UTF-8
+2026-02-13 00:36:37.852 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: JIS_X0201
+2026-02-13 00:36:37.852 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 63 bytes
+2026-02-13 00:36:37.856 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-11591353570637739937/parameter.properties
+2026-02-13 00:36:37.856 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:36:37.856 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_F
+2026-02-13 00:36:37.856 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-11591353570637739937/input.dat
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-11591353570637739937/output.dat
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:36:37.857 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_F
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-11591353570637739937/input.dat
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-11591353570637739937/output.dat
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: JIS_X0201
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: UTF-8
+2026-02-13 00:36:37.857 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 57 bytes
+2026-02-13 00:37:32.624 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12453552303426449284/parameter.properties
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_D
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12453552303426449284/input.txt
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12453552303426449284/output.txt
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:37:32.628 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 00:37:32.629 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.629 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_D
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12453552303426449284/input.txt
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12453552303426449284/output.txt
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:37:32.629 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:37:32.630 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1140 bytes
+2026-02-13 00:37:32.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 00:37:32.631 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:37:32.631 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (80 bytes)
+2026-02-13 00:37:32.631 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 80 bytes -> 80 bytes
+2026-02-13 00:37:32.631 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 00:37:32.631 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 00:37:32.632 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (70 bytes)
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 70 bytes -> 70 bytes
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (130 bytes)
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 130 bytes -> 130 bytes
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 00:37:32.633 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:37:32.633 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1140 bytes -> 1190 bytes
+2026-02-13 00:37:32.634 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1190 bytes
+2026-02-13 00:37:32.634 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-14150558993590164278/parameter.properties
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-14150558993590164278/input.txt
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-14150558993590164278/output.txt
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:37:32.636 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.637 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 00:37:32.637 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 00:37:32.637 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.637 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.637 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 00:37:32.637 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 00:37:32.637 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-14150558993590164278/input.txt
+2026-02-13 00:37:32.637 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-14150558993590164278/output.txt
+2026-02-13 00:37:32.638 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:37:32.638 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:37:32.638 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.638 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 00:37:32.638 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 00:37:32.638 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 00:37:32.639 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:37:32.640 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 00:37:32.641 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 00:37:32.641 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (150 bytes)
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 00:37:32.642 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:37:32.642 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1208 bytes
+2026-02-13 00:37:32.643 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1208 bytes
+2026-02-13 00:37:32.643 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-9192820313130890597/parameter.properties
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 2バイト文字コードが同一のため漢字変換をスキップします: UTF-8
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-9192820313130890597/input.txt
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-9192820313130890597/output.txt
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.644 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.644 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-9192820313130890597/input.txt
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-9192820313130890597/output.txt
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 00:37:32.645 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (150 bytes)
+2026-02-13 00:37:32.645 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 00:37:32.646 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 00:37:32.646 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 00:37:32.646 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1310 bytes
+2026-02-13 00:37:32.646 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1310 bytes
+2026-02-13 00:37:32.646 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-15795716693087949248/parameter.properties
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_E
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-15795716693087949248/input.dat
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-15795716693087949248/output.dat
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.649 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_E
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-15795716693087949248/input.dat
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-15795716693087949248/output.dat
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: UTF-8
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: JIS_X0201
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 63 bytes
+2026-02-13 00:37:32.650 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (26 bytes)
+2026-02-13 00:37:32.650 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 26 bytes -> 26 bytes
+2026-02-13 00:37:32.650 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (26 bytes)
+2026-02-13 00:37:32.650 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 26 bytes -> 26 bytes
+2026-02-13 00:37:32.650 [main] INFO  c.e.b.p.VariableLengthConverter - 文字コード変換完了: 63 bytes -> 63 bytes
+2026-02-13 00:37:32.651 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル書き込み完了: 63 bytes
+2026-02-13 00:37:32.651 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理完了 ==========
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14486978586812209078/parameter.properties
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_F
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14486978586812209078/input.dat
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14486978586812209078/output.dat
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.652 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.652 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 00:37:32.652 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_F
+2026-02-13 00:37:32.652 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14486978586812209078/input.dat
+2026-02-13 00:37:32.652 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-14486978586812209078/output.dat
+2026-02-13 00:37:32.652 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: JIS_X0201
+2026-02-13 00:37:32.652 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: UTF-8
+2026-02-13 00:37:32.653 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 57 bytes
+2026-02-13 00:37:32.653 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (26 bytes)
+2026-02-13 00:37:32.653 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 26 bytes -> 26 bytes
+2026-02-13 00:37:32.653 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (20 bytes)
+2026-02-13 00:37:32.653 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 20 bytes -> 20 bytes
+2026-02-13 00:37:32.653 [main] INFO  c.e.b.p.VariableLengthConverter - 文字コード変換完了: 57 bytes -> 57 bytes
+2026-02-13 00:37:32.653 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル書き込み完了: 57 bytes
+2026-02-13 00:37:32.653 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理完了 ==========
+2026-02-13 00:37:32.656 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-824644031287782545/parameter.properties
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_A
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-824644031287782545/input.txt
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-824644031287782545/output.txt
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.657 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理開始 ==========
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - ファイルタイプ: FILE_A
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-824644031287782545/input.txt
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-824644031287782545/output.txt
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - 変換元文字コード: UTF-8
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - 変換先文字コード: JIS_X0201
+2026-02-13 00:37:32.657 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル読み込み完了: 840 bytes
+2026-02-13 00:37:32.657 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (840 bytes)
+2026-02-13 00:37:32.658 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:37:32.658 [main] INFO  c.e.b.processor.WholeFileConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:37:32.658 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル書き込み完了: 840 bytes
+2026-02-13 00:37:32.658 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理完了 ==========
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4252683413600294417/parameter.properties
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_B
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4252683413600294417/input.txt
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4252683413600294417/output.txt
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 00:37:32.659 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理開始 ==========
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - ファイルタイプ: FILE_B
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4252683413600294417/input.txt
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4252683413600294417/output.txt
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - 変換元文字コード: JIS_X0201
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - 変換先文字コード: UTF-8
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル読み込み完了: 840 bytes
+2026-02-13 00:37:32.659 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (840 bytes)
+2026-02-13 00:37:32.659 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:37:32.659 [main] INFO  c.e.b.processor.WholeFileConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 00:37:32.660 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル書き込み完了: 840 bytes
+2026-02-13 00:37:32.660 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理完了 ==========
+2026-02-13 09:19:16.545 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4078379748514648545/parameter.properties
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_A
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4078379748514648545/input.txt
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4078379748514648545/output.txt
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:19:16.553 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:19:16.553 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理開始 ==========
+2026-02-13 09:19:16.556 [main] INFO  c.e.b.processor.WholeFileConverter - ファイルタイプ: FILE_A
+2026-02-13 09:19:16.556 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4078379748514648545/input.txt
+2026-02-13 09:19:16.557 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-4078379748514648545/output.txt
+2026-02-13 09:19:16.557 [main] INFO  c.e.b.processor.WholeFileConverter - 変換元文字コード: UTF-8
+2026-02-13 09:19:16.557 [main] INFO  c.e.b.processor.WholeFileConverter - 変換先文字コード: JIS_X0201
+2026-02-13 09:19:16.557 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル読み込み完了: 840 bytes
+2026-02-13 09:19:16.558 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (840 bytes)
+2026-02-13 09:19:16.559 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 09:19:16.559 [main] INFO  c.e.b.processor.WholeFileConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 09:19:16.559 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル書き込み完了: 840 bytes
+2026-02-13 09:19:16.559 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理完了 ==========
+2026-02-13 09:19:16.561 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-368645343660403350/parameter.properties
+2026-02-13 09:19:16.562 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:19:16.562 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_B
+2026-02-13 09:19:16.562 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-368645343660403350/input.txt
+2026-02-13 09:19:16.562 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-368645343660403350/output.txt
+2026-02-13 09:19:16.562 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:19:16.562 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 09:19:16.563 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:19:16.563 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 09:19:16.563 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:19:16.563 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:19:16.563 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:19:16.563 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理開始 ==========
+2026-02-13 09:19:16.563 [main] INFO  c.e.b.processor.WholeFileConverter - ファイルタイプ: FILE_B
+2026-02-13 09:19:16.563 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-368645343660403350/input.txt
+2026-02-13 09:19:16.563 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/whole-file-test-368645343660403350/output.txt
+2026-02-13 09:19:16.563 [main] INFO  c.e.b.processor.WholeFileConverter - 変換元文字コード: JIS_X0201
+2026-02-13 09:19:16.563 [main] INFO  c.e.b.processor.WholeFileConverter - 変換先文字コード: UTF-8
+2026-02-13 09:19:16.564 [main] INFO  c.e.b.processor.WholeFileConverter - 入力ファイル読み込み完了: 840 bytes
+2026-02-13 09:19:16.564 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (840 bytes)
+2026-02-13 09:19:16.564 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 09:19:16.564 [main] INFO  c.e.b.processor.WholeFileConverter - 文字コード変換完了: 840 bytes -> 840 bytes
+2026-02-13 09:19:16.564 [main] INFO  c.e.b.processor.WholeFileConverter - 出力ファイル書き込み完了: 840 bytes
+2026-02-13 09:19:16.564 [main] INFO  c.e.b.processor.WholeFileConverter - ========== 全体変換処理完了 ==========
+2026-02-13 09:36:47.038 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-6609389931134566161/parameter.properties
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_D
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-6609389931134566161/input.txt
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-6609389931134566161/output.txt
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 09:36:47.042 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:36:47.043 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:36:47.043 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 09:36:47.043 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:36:47.043 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_D
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-6609389931134566161/input.txt
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-6609389931134566161/output.txt
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:36:47.044 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:36:47.045 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1140 bytes
+2026-02-13 09:36:47.046 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 09:36:47.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:36:47.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (80 bytes)
+2026-02-13 09:36:47.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 80 bytes -> 80 bytes
+2026-02-13 09:36:47.047 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 09:36:47.047 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 09:36:47.048 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 09:36:47.048 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (70 bytes)
+2026-02-13 09:36:47.048 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 70 bytes -> 70 bytes
+2026-02-13 09:36:47.048 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 09:36:47.048 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 09:36:47.049 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 09:36:47.049 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (130 bytes)
+2026-02-13 09:36:47.049 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 130 bytes -> 130 bytes
+2026-02-13 09:36:47.049 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 09:36:47.049 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:36:47.049 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1140 bytes -> 1190 bytes
+2026-02-13 09:36:47.049 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1190 bytes
+2026-02-13 09:36:47.049 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:36:47.052 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12787253898576574036/parameter.properties
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12787253898576574036/input.txt
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12787253898576574036/output.txt
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:36:47.053 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:36:47.053 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:36:47.053 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 09:36:47.053 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12787253898576574036/input.txt
+2026-02-13 09:36:47.054 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-12787253898576574036/output.txt
+2026-02-13 09:36:47.054 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:36:47.054 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:36:47.054 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:36:47.054 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 09:36:47.054 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 09:36:47.054 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 09:36:47.055 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:36:47.057 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 09:36:47.057 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 09:36:47.057 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (150 bytes)
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 09:36:47.059 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:36:47.060 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1208 bytes
+2026-02-13 09:36:47.060 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1208 bytes
+2026-02-13 09:36:47.060 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-8389042350647436537/parameter.properties
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 2バイト文字コードが同一のため漢字変換をスキップします: UTF-8
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-8389042350647436537/input.txt
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-8389042350647436537/output.txt
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:36:47.062 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:36:47.062 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:36:47.062 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-8389042350647436537/input.txt
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-8389042350647436537/output.txt
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:36:47.063 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 09:36:47.063 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 09:36:47.063 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (150 bytes)
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 09:36:47.064 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:36:47.064 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1310 bytes
+2026-02-13 09:36:47.065 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1310 bytes
+2026-02-13 09:36:47.065 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:38:21.184 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4119327930815206831/parameter.properties
+2026-02-13 09:38:21.187 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:38:21.187 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_D
+2026-02-13 09:38:21.187 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4119327930815206831/input.txt
+2026-02-13 09:38:21.187 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4119327930815206831/output.txt
+2026-02-13 09:38:21.187 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:38:21.188 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 09:38:21.188 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:38:21.188 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:38:21.188 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 09:38:21.188 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:38:21.188 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_D
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4119327930815206831/input.txt
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4119327930815206831/output.txt
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:38:21.189 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:38:21.190 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1140 bytes
+2026-02-13 09:38:21.191 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 09:38:21.191 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:38:21.191 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (80 bytes)
+2026-02-13 09:38:21.191 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 80 bytes -> 80 bytes
+2026-02-13 09:38:21.191 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 09:38:21.191 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 09:38:21.192 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 09:38:21.192 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (70 bytes)
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 70 bytes -> 70 bytes
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (130 bytes)
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 130 bytes -> 130 bytes
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 09:38:21.193 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:38:21.193 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1140 bytes -> 1190 bytes
+2026-02-13 09:38:21.194 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1190 bytes
+2026-02-13 09:38:21.194 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:38:21.196 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-13451709266582191529/parameter.properties
+2026-02-13 09:38:21.196 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-13451709266582191529/input.txt
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-13451709266582191529/output.txt
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:38:21.197 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:38:21.197 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:38:21.197 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 09:38:21.198 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-13451709266582191529/input.txt
+2026-02-13 09:38:21.198 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-13451709266582191529/output.txt
+2026-02-13 09:38:21.198 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:38:21.198 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:38:21.198 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:38:21.198 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 09:38:21.199 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 09:38:21.203 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 09:38:21.233 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:38:21.237 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 09:38:21.237 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 09:38:21.237 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 09:38:21.239 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (150 bytes)
+2026-02-13 09:38:21.240 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 09:38:21.248 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 09:38:21.248 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:38:21.248 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1208 bytes
+2026-02-13 09:38:21.249 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1208 bytes
+2026-02-13 09:38:21.249 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-16548950105211344558/parameter.properties
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 2バイト文字コードが同一のため漢字変換をスキップします: UTF-8
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-16548950105211344558/input.txt
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-16548950105211344558/output.txt
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:38:21.251 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-16548950105211344558/input.txt
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-16548950105211344558/output.txt
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:38:21.252 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 09:38:21.252 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 09:38:21.252 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:38:21.253 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 09:38:21.253 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 09:38:21.253 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 09:38:21.253 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 09:38:21.254 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (150 bytes)
+2026-02-13 09:38:21.254 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 09:38:21.254 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 09:38:21.254 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:38:21.254 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1310 bytes
+2026-02-13 09:38:21.255 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1310 bytes
+2026-02-13 09:38:21.255 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:39:08.599 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2456243166675912684/parameter.properties
+2026-02-13 09:39:08.603 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:39:08.603 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_D
+2026-02-13 09:39:08.603 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2456243166675912684/input.txt
+2026-02-13 09:39:08.603 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2456243166675912684/output.txt
+2026-02-13 09:39:08.603 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:39:08.604 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 09:39:08.604 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:39:08.604 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:39:08.604 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 09:39:08.604 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:39:08.604 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_D
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2456243166675912684/input.txt
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-2456243166675912684/output.txt
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: ISO-2022-JP
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:39:08.605 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:39:08.606 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1140 bytes
+2026-02-13 09:39:08.608 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 09:39:08.608 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:39:08.608 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (80 bytes)
+2026-02-13 09:39:08.608 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 80 bytes -> 80 bytes
+2026-02-13 09:39:08.609 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 09:39:08.609 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (70 bytes)
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 70 bytes -> 70 bytes
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: ISO-2022-JP -> UTF-8 (50 bytes)
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス付与: 50 bytes -> 56 bytes
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 50 bytes -> 75 bytes
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (130 bytes)
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 130 bytes -> 130 bytes
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (380 bytes)
+2026-02-13 09:39:08.610 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:39:08.611 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1140 bytes -> 1190 bytes
+2026-02-13 09:39:08.611 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1190 bytes
+2026-02-13 09:39:08.611 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4072852975978624656/parameter.properties
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4072852975978624656/input.txt
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4072852975978624656/output.txt
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:39:08.615 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:39:08.616 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 09:39:08.616 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: true
+2026-02-13 09:39:08.616 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:39:08.616 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:39:08.616 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:39:08.616 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 09:39:08.616 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4072852975978624656/input.txt
+2026-02-13 09:39:08.616 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-4072852975978624656/output.txt
+2026-02-13 09:39:08.616 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:39:08.616 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:39:08.617 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:39:08.617 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: ISO-2022-JP
+2026-02-13 09:39:08.617 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 09:39:08.618 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 09:39:08.618 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:39:08.621 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 09:39:08.622 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 09:39:08.622 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 09:39:08.623 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 09:39:08.623 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 09:39:08.623 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (52 bytes)
+2026-02-13 09:39:08.623 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 50 bytes
+2026-02-13 09:39:08.623 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換開始: UTF-8 -> ISO-2022-JP (148 bytes)
+2026-02-13 09:39:08.624 [main] DEBUG com.example.batch.util.CodeConverter - ESCシーケンス除去: 105 bytes -> 99 bytes
+2026-02-13 09:39:08.624 [main] DEBUG com.example.batch.util.CodeConverter - 漢字文字コード変換完了: 148 bytes -> 99 bytes
+2026-02-13 09:39:08.624 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (150 bytes)
+2026-02-13 09:39:08.624 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 09:39:08.624 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (380 bytes)
+2026-02-13 09:39:08.625 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:39:08.625 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1208 bytes
+2026-02-13 09:39:08.625 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1208 bytes
+2026-02-13 09:39:08.625 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-15152276324775658952/parameter.properties
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 2バイト文字コードが同一のため漢字変換をスキップします: UTF-8
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_C
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-15152276324775658952/input.txt
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-15152276324775658952/output.txt
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:39:08.627 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:39:08.628 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理開始 ==========
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - ファイルタイプ: FILE_C
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-15152276324775658952/input.txt
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/mixed-file-test-15152276324775658952/output.txt
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 変換元2バイト文字コード: UTF-8
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 変換先2バイト文字コード: UTF-8
+2026-02-13 09:39:08.628 [main] INFO  c.e.b.processor.MixedFileConverter - 入力ファイル読み込み完了: 1310 bytes
+2026-02-13 09:39:08.629 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 09:39:08.629 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:39:08.629 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 09:39:08.629 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 09:39:08.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (52 bytes)
+2026-02-13 09:39:08.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 52 bytes -> 52 bytes
+2026-02-13 09:39:08.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (150 bytes)
+2026-02-13 09:39:08.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 150 bytes -> 150 bytes
+2026-02-13 09:39:08.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> UTF-8 (380 bytes)
+2026-02-13 09:39:08.630 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 380 bytes -> 380 bytes
+2026-02-13 09:39:08.630 [main] INFO  c.e.b.processor.MixedFileConverter - 文字コード変換完了: 1310 bytes -> 1310 bytes
+2026-02-13 09:39:08.630 [main] INFO  c.e.b.processor.MixedFileConverter - 出力ファイル書き込み完了: 1310 bytes
+2026-02-13 09:39:08.630 [main] INFO  c.e.b.processor.MixedFileConverter - ========== 混合ファイル変換処理完了 ==========
+2026-02-13 09:41:43.036 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-13360967322953871688/parameter.properties
+2026-02-13 09:41:43.043 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_E
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-13360967322953871688/input.dat
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-13360967322953871688/output.dat
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: UTF-8
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: JIS_X0201
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:41:43.044 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:41:43.045 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 09:41:43.045 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_E
+2026-02-13 09:41:43.045 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-13360967322953871688/input.dat
+2026-02-13 09:41:43.045 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-13360967322953871688/output.dat
+2026-02-13 09:41:43.045 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: UTF-8
+2026-02-13 09:41:43.045 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: JIS_X0201
+2026-02-13 09:41:43.046 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 63 bytes
+2026-02-13 09:41:43.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (26 bytes)
+2026-02-13 09:41:43.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 26 bytes -> 26 bytes
+2026-02-13 09:41:43.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: UTF-8 -> JIS_X0201 (26 bytes)
+2026-02-13 09:41:43.047 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 26 bytes -> 26 bytes
+2026-02-13 09:41:43.047 [main] INFO  c.e.b.p.VariableLengthConverter - 文字コード変換完了: 63 bytes -> 63 bytes
+2026-02-13 09:41:43.048 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル書き込み完了: 63 bytes
+2026-02-13 09:41:43.048 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理完了 ==========
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み開始: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-16314570712250688733/parameter.properties
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - ========== パラメータ内容 ==========
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - ファイルID: FILE_F
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - 入力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-16314570712250688733/input.dat
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - 出力ファイルパス: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-16314570712250688733/output.dat
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - 変換元1バイト文字コード: JIS_X0201
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - 変換元2バイト文字コード: (未設定)
+2026-02-13 09:41:43.051 [main] INFO  c.example.batch.param.BatchParameter - 変換先1バイト文字コード: UTF-8
+2026-02-13 09:41:43.052 [main] INFO  c.example.batch.param.BatchParameter - 変換先2バイト文字コード: (未設定)
+2026-02-13 09:41:43.052 [main] INFO  c.example.batch.param.BatchParameter - 漢字変換実施: false
+2026-02-13 09:41:43.052 [main] INFO  c.example.batch.param.BatchParameter - ====================================
+2026-02-13 09:41:43.052 [main] INFO  c.example.batch.param.BatchParameter - パラメータファイル読み込み完了
+2026-02-13 09:41:43.052 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理開始 ==========
+2026-02-13 09:41:43.052 [main] INFO  c.e.b.p.VariableLengthConverter - ファイルタイプ: FILE_F
+2026-02-13 09:41:43.052 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-16314570712250688733/input.dat
+2026-02-13 09:41:43.052 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル: /var/folders/_h/2y2ddkms2jl3g48sn832x7500000gn/T/variable-length-test-16314570712250688733/output.dat
+2026-02-13 09:41:43.052 [main] INFO  c.e.b.p.VariableLengthConverter - 変換元文字コード: JIS_X0201
+2026-02-13 09:41:43.052 [main] INFO  c.e.b.p.VariableLengthConverter - 変換先文字コード: UTF-8
+2026-02-13 09:41:43.053 [main] INFO  c.e.b.p.VariableLengthConverter - 入力ファイル読み込み完了: 57 bytes
+2026-02-13 09:41:43.053 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (26 bytes)
+2026-02-13 09:41:43.053 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 26 bytes -> 26 bytes
+2026-02-13 09:41:43.053 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換開始: JIS_X0201 -> UTF-8 (20 bytes)
+2026-02-13 09:41:43.054 [main] DEBUG com.example.batch.util.CodeConverter - 文字コード変換完了: 20 bytes -> 20 bytes
+2026-02-13 09:41:43.054 [main] INFO  c.e.b.p.VariableLengthConverter - 文字コード変換完了: 57 bytes -> 57 bytes
+2026-02-13 09:41:43.054 [main] INFO  c.e.b.p.VariableLengthConverter - 出力ファイル書き込み完了: 57 bytes
+2026-02-13 09:41:43.054 [main] INFO  c.e.b.p.VariableLengthConverter - ========== 可変長ファイル変換処理完了 ==========
